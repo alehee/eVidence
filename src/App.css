@@ -1,3 +1,14 @@
+/*
+#F8F0E5
+#EADBC8
+#DAC0A3
+#0F2C59
+*/
+
 .cursor-pointer {
   cursor: pointer;
+}
+
+body {
+  background-color: #F8F0E5;
 }

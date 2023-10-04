@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -6,6 +7,18 @@ export default class Home extends React.Component {
   }
 
   render() {
-    return <div>Home</div>;
+    return (
+      <div>
+        <div>
+          <Link to={"/administration"}>Administration</Link>
+        </div>
+        <div>
+          <Link to={"/entrance"}>Entrance</Link>
+        </div>
+        <div>
+          <Link to={"/checkpoint"}>Checkpoint</Link>
+        </div>
+      </div>
+    );
   }
 }
