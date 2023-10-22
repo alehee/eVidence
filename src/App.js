@@ -5,10 +5,12 @@ import Home from "./pages/Home";
 import Administration from "./pages/Administration";
 import Entrance from "./pages/Entrance";
 import Checkpoint from "./pages/Checkpoint";
+import Header from "./components/Essentials/Header";
 
 function App() {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/administration" element={<Administration />} />

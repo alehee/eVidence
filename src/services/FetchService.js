@@ -2,8 +2,10 @@ import { Env } from "../Env";
 
 export default class FetchService {
   static keycardCheck(callback, keycard) {
-    // TODO
-    fetch(Env.API_HOST + "/x/", {
+    const params = new URLSearchParams();
+    params.set("keycard", keycard);
+
+    fetch(Env.API_HOST + "/account/check?" + params.toString(), {
       method: "GET",
     })
       .then((response) => response.json())
