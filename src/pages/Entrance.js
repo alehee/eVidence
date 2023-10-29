@@ -1,13 +1,19 @@
 import React from "react";
+import EntranceStatus from "../helpers/EntranceStatus";
 import LoadingComponent from "../components/Essentials/LoadingComponent";
 import CardReader from "../components/CardReader";
 import FetchService from "../services/FetchService";
 import toast from "react-hot-toast";
+import RegisterAccount from "../components/Entrance/RegisterAccount";
 
 export default class Entrance extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isLoading: false };
+    this.state = {
+      isLoading: false,
+      status: EntranceStatus.NotAuthenticated,
+      keycard: null,
+    };
 
     this.callbackKeycard = this.callbackKeycard.bind(this);
     this.callbackAuthentication = this.callbackAuthentication.bind(this);
@@ -16,7 +22,7 @@ export default class Entrance extends React.Component {
 
   callbackKeycard(keycard) {
     console.log(keycard);
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, keycard: keycard });
     FetchService.keycardCheck(this.callbackAuthentication, keycard);
   }
 
@@ -29,6 +35,9 @@ export default class Entrance extends React.Component {
 
   build() {
     if (this.state.isLoading) return <LoadingComponent />;
+
+    if (this.state.status === EntranceStatus.NewAccount)
+      return <RegisterAccount />;
 
     return (
       <div>
