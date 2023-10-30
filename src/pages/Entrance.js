@@ -17,20 +17,39 @@ export default class Entrance extends React.Component {
 
     this.callbackKeycard = this.callbackKeycard.bind(this);
     this.callbackAuthentication = this.callbackAuthentication.bind(this);
+    this.resetView = this.resetView.bind(this);
     this.build = this.build.bind(this);
   }
 
   callbackKeycard(keycard) {
-    console.log(keycard);
     this.setState({ isLoading: true, keycard: keycard });
     FetchService.keycardCheck(this.callbackAuthentication, keycard);
   }
 
   callbackAuthentication(response) {
     console.log(response);
-    this.setState({ isLoading: false });
-    // TODO
-    toast("Otrzymano odpowiedź");
+    if (!response.success) {
+      toast("Wystąpił problem z rozpoznaniem karty. Spróbuj ponownie później.");
+      this.resetView();
+      return;
+    }
+
+    if (response.result.type === 2) {
+      this.setState({ isLoading: false, status: EntranceStatus.NewTemp });
+      return;
+    } else if (response.result.type === 1) {
+      this.setState({ isLoading: false, status: EntranceStatus.AccountToggle });
+      return;
+    }
+    this.setState({ isLoading: false, status: EntranceStatus.NewAccount });
+  }
+
+  resetView() {
+    this.setState({
+      isLoading: false,
+      status: EntranceStatus.NotAuthenticated,
+      keycard: null,
+    });
   }
 
   build() {

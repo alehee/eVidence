@@ -11,4 +11,12 @@ export default class FetchService {
       .then((response) => response.json())
       .then((array) => callback(array));
   }
+
+  static getDepartments(callback) {
+    fetch(Env.API_HOST + "/structure/department", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((array) => callback(array));
+  }
 }
