@@ -56,7 +56,12 @@ export default class Entrance extends React.Component {
     if (this.state.isLoading) return <LoadingComponent />;
 
     if (this.state.status === EntranceStatus.NewAccount)
-      return <RegisterAccount resetView={this.resetView} />;
+      return (
+        <RegisterAccount
+          keycard={this.state.keycard}
+          resetView={this.resetView}
+        />
+      );
 
     return (
       <div>

@@ -2,6 +2,7 @@ import React from "react";
 import FetchService from "../../services/FetchService";
 import LoadingComponent from "../Essentials/LoadingComponent";
 import ScreenKeyboard from "./ScreenKeyboard";
+import toast from "react-hot-toast";
 
 export default class RegisterAccount extends React.Component {
   constructor(props) {
@@ -9,7 +10,6 @@ export default class RegisterAccount extends React.Component {
     this.state = {
       isLoading: true,
       departments: null,
-      message: null,
       inputs: {
         name: "",
         surname: "",
@@ -20,6 +20,7 @@ export default class RegisterAccount extends React.Component {
 
     this.callbackDepartments = this.callbackDepartments.bind(this);
     this.callbackInput = this.callbackInput.bind(this);
+    this.callbackRegister = this.callbackRegister.bind(this);
     this.buttonValidateAndRegister = this.buttonValidateAndRegister.bind(this);
   }
 
@@ -39,14 +40,43 @@ export default class RegisterAccount extends React.Component {
     this.setState({ inputs: inputs });
   }
 
+  callbackRegister(response) {
+    if (response.success) {
+      toast("Zarejestrowano pomyślnie! Odbij się ponownie aby wejść.");
+      this.props.resetView();
+    } else {
+      toast("Wystąpił problem z rejestracją spróbuj ponownie później.");
+    }
+  }
+
   buttonValidateAndRegister() {
-    // TODO
+    if (
+      this.state.inputs.name === "" ||
+      this.state.inputs.surname === "" ||
+      this.state.selectedDepartment === null
+    ) {
+      toast("Wypełnij wszystkie pola rejestracji!");
+      return;
+    }
+
+    FetchService.registerAccount(
+      this.callbackRegister,
+      this.props.keycard,
+      this.state.inputs.name,
+      this.state.inputs.surname,
+      this.state.selectedDepartment
+    );
+    this.setState({ isLoading: true });
   }
 
   buildDepartmentSelect() {
     if (this.state.departments === null) return;
 
-    let options = [];
+    let options = [
+      <option selected hidden>
+        Wybierz dział...
+      </option>,
+    ];
     this.state.departments.forEach((element) => {
       options.push(<option value={element.id}>{element.name}</option>);
     });
@@ -87,7 +117,7 @@ export default class RegisterAccount extends React.Component {
         />
         <button
           className="btn btn-primary mt-3 px-3"
-          onClick={() => this.buttonValidateAndRegister}
+          onClick={() => this.buttonValidateAndRegister()}
         >
           Zatwierdź
         </button>
@@ -103,8 +133,6 @@ export default class RegisterAccount extends React.Component {
 
   render() {
     if (this.state.isLoading) return <LoadingComponent />;
-
-    if (this.state.message !== null) return <div>{this.state.message}</div>;
 
     return this.buildForm();
   }
