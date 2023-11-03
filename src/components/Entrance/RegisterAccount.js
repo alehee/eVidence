@@ -13,15 +13,14 @@ export default class RegisterAccount extends React.Component {
       inputs: {
         name: "",
         surname: "",
-        departmentId: null,
       },
       inputId: null,
+      selectedDepartment: null,
     };
 
     this.callbackDepartments = this.callbackDepartments.bind(this);
     this.callbackInput = this.callbackInput.bind(this);
     this.buttonValidateAndRegister = this.buttonValidateAndRegister.bind(this);
-    this.buttonCancel = this.buttonCancel.bind(this);
   }
 
   componentDidMount() {
@@ -29,9 +28,11 @@ export default class RegisterAccount extends React.Component {
   }
 
   callbackDepartments(response) {
-    console.log(response);
-    // TODO
-    this.setState({ isLoading: false });
+    let arr = [];
+    response.result.forEach((element) => {
+      arr.push(element);
+    });
+    this.setState({ isLoading: false, departments: arr });
   }
 
   callbackInput(inputs) {
@@ -42,15 +43,22 @@ export default class RegisterAccount extends React.Component {
     // TODO
   }
 
-  buttonCancel() {
-    // TODO
-  }
-
   buildDepartmentSelect() {
-    // TODO
     if (this.state.departments === null) return;
 
-    return <div>SELECT</div>;
+    let options = [];
+    this.state.departments.forEach((element) => {
+      options.push(<option value={element.id}>{element.name}</option>);
+    });
+
+    return (
+      <select
+        className="form-control w-75 my-2 mx-auto"
+        onChange={(e) => this.setState({ selectedDepartment: e.target.value })}
+      >
+        {options}
+      </select>
+    );
   }
 
   buildForm() {
@@ -85,7 +93,7 @@ export default class RegisterAccount extends React.Component {
         </button>
         <button
           className="btn btn-danger mt-3 px-3"
-          onClick={() => this.buttonCancel}
+          onClick={() => this.props.resetView()}
         >
           Anuluj
         </button>
