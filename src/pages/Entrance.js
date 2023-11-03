@@ -13,11 +13,15 @@ export default class Entrance extends React.Component {
       isLoading: false,
       status: EntranceStatus.NotAuthenticated,
       keycard: null,
+      accountId: null,
       temporaryId: null,
     };
 
     this.callbackKeycard = this.callbackKeycard.bind(this);
     this.callbackAuthentication = this.callbackAuthentication.bind(this);
+    this.callbackAccountCheck = this.callbackAccountCheck.bind(this);
+    this.callbackTemporaryCheck = this.callbackTemporaryCheck.bind(this);
+    this.callbackEntranceToggle = this.callbackEntranceToggle.bind(this);
     this.resetView = this.resetView.bind(this);
     this.build = this.build.bind(this);
   }
@@ -36,17 +40,71 @@ export default class Entrance extends React.Component {
     }
 
     if (response.result.type === 2) {
-      this.setState({
-        isLoading: false,
-        status: EntranceStatus.NewTemp,
-        temporaryId: response.result.instance.id,
-      });
+      FetchService.entranceCheckTemporary(
+        this.callbackTemporaryCheck,
+        response.result.instance.id
+      );
+      this.setState({ temporaryId: response.result.instance.id });
       return;
     } else if (response.result.type === 1) {
-      this.setState({ isLoading: false, status: EntranceStatus.AccountToggle });
+      FetchService.entranceCheckAccount(
+        this.callbackAccountCheck,
+        response.result.instance.id
+      );
+      this.setState({ accountId: response.result.instance.id });
       return;
     }
     this.setState({ isLoading: false, status: EntranceStatus.NewAccount });
+  }
+
+  callbackAccountCheck(response) {
+    console.log(response);
+    if (!response.success) {
+      toast("Wystąpił problem z rozpoznaniem karty. Spróbuj ponownie później.");
+      this.resetView();
+      return;
+    }
+
+    if (response.result === null || response.result.exit !== null) {
+      FetchService.entranceToggleAccount(
+        this.callbackEntranceToggle,
+        this.state.accountId,
+        true
+      );
+    }
+    FetchService.entranceToggleAccount(
+      this.callbackEntranceToggle,
+      this.state.accountId,
+      false
+    );
+  }
+
+  callbackTemporaryCheck(response) {
+    if (!response.success) {
+      toast("Wystąpił problem z rozpoznaniem karty. Spróbuj ponownie później.");
+      this.resetView();
+      return;
+    }
+
+    if (response.result !== null && response.result.exit === null) {
+      FetchService.entranceExitTemporary(
+        this.callbackEntranceToggle,
+        response.result.temporaryCard.id
+      );
+      return;
+    }
+    this.setState({ isLoading: false, status: EntranceStatus.NewTemp });
+  }
+
+  callbackEntranceToggle(response, isExit) {
+    if (!response.success) {
+      toast("Wystąpił problem z rozpoznaniem karty. Spróbuj ponownie później.");
+      this.resetView();
+      return;
+    }
+
+    toast("Poprawnie zarejestrowano " + (isExit ? "wyjście" : "wejście"));
+    this.resetView();
   }
 
   resetView() {
@@ -54,6 +112,7 @@ export default class Entrance extends React.Component {
       isLoading: false,
       status: EntranceStatus.NotAuthenticated,
       keycard: null,
+      accountId: null,
       temporaryId: null,
     });
   }

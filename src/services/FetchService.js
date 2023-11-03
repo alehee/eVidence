@@ -40,6 +40,40 @@ export default class FetchService {
       .then((result) => callback(result));
   }
 
+  static entranceCheckAccount(callback, id) {
+    const params = new URLSearchParams();
+    params.set("id", id);
+
+    fetch(Env.API_HOST + "/entrance/check?" + params.toString(), {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static entranceToggleAccount(callback, id, isEntering) {
+    const params = new URLSearchParams();
+    params.set("id", id);
+    params.set("isEntering", isEntering);
+
+    fetch(Env.API_HOST + "/entrance/toggle?" + params.toString(), {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result, !isEntering));
+  }
+
+  static entranceCheckTemporary(callback, id) {
+    const params = new URLSearchParams();
+    params.set("id", id);
+
+    fetch(Env.API_HOST + "/entrance/temporary/check?" + params.toString(), {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
   static entranceEnterTemporary(callback, id, name, surname) {
     const params = new URLSearchParams();
     params.set("id", id);
@@ -51,6 +85,17 @@ export default class FetchService {
     })
       .then((response) => response.json())
       .then((result) => callback(result));
+  }
+
+  static entranceExitTemporary(callback, id) {
+    const params = new URLSearchParams();
+    params.set("id", id);
+
+    fetch(Env.API_HOST + "/entrance/temporary/exit?" + params.toString(), {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result, true));
   }
 
   //#endregion

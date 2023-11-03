@@ -20,8 +20,7 @@ export default class Register extends React.Component {
 
     this.callbackDepartments = this.callbackDepartments.bind(this);
     this.callbackInput = this.callbackInput.bind(this);
-    this.callbackRegisterAccount = this.callbackRegisterAccount.bind(this);
-    this.callbackRegisterTemporary = this.callbackRegisterTemporary.bind(this);
+    this.callbackRegister = this.callbackRegister.bind(this);
     this.buttonValidateAndRegister = this.buttonValidateAndRegister.bind(this);
   }
 
@@ -41,17 +40,15 @@ export default class Register extends React.Component {
     this.setState({ inputs: inputs });
   }
 
-  callbackRegisterAccount(response) {
+  callbackRegister(response) {
     if (response.success) {
-      toast("Zarejestrowano pomyślnie! Odbij się ponownie aby wejść.");
+      if (this.props.isTemporary)
+        toast("Zarejestrowano pomyślnie! Możesz wejść na obiekt.");
+      else toast("Zarejestrowano pomyślnie! Odbij się ponownie aby wejść.");
       this.props.resetView();
     } else {
       toast("Wystąpił problem z rejestracją spróbuj ponownie później.");
     }
-  }
-
-  callbackRegisterTemporary(response) {
-    console.log(response);
   }
 
   buttonValidateAndRegister() {
@@ -66,7 +63,7 @@ export default class Register extends React.Component {
 
     if (!this.props.isTemporary)
       FetchService.registerAccount(
-        this.callbackRegisterAccount,
+        this.callbackRegister,
         this.props.keycard,
         this.state.inputs.name,
         this.state.inputs.surname,
@@ -74,7 +71,7 @@ export default class Register extends React.Component {
       );
     else
       FetchService.entranceEnterTemporary(
-        this.callbackRegisterTemporary,
+        this.callbackRegister,
         this.props.temporaryId,
         this.state.inputs.name,
         this.state.inputs.surname
