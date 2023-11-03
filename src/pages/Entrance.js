@@ -4,7 +4,7 @@ import LoadingComponent from "../components/Essentials/LoadingComponent";
 import CardReader from "../components/CardReader";
 import FetchService from "../services/FetchService";
 import toast from "react-hot-toast";
-import RegisterAccount from "../components/Entrance/RegisterAccount";
+import Register from "../components/Entrance/Register";
 
 export default class Entrance extends React.Component {
   constructor(props) {
@@ -13,6 +13,7 @@ export default class Entrance extends React.Component {
       isLoading: false,
       status: EntranceStatus.NotAuthenticated,
       keycard: null,
+      temporaryId: null,
     };
 
     this.callbackKeycard = this.callbackKeycard.bind(this);
@@ -35,7 +36,11 @@ export default class Entrance extends React.Component {
     }
 
     if (response.result.type === 2) {
-      this.setState({ isLoading: false, status: EntranceStatus.NewTemp });
+      this.setState({
+        isLoading: false,
+        status: EntranceStatus.NewTemp,
+        temporaryId: response.result.instance.id,
+      });
       return;
     } else if (response.result.type === 1) {
       this.setState({ isLoading: false, status: EntranceStatus.AccountToggle });
@@ -49,6 +54,7 @@ export default class Entrance extends React.Component {
       isLoading: false,
       status: EntranceStatus.NotAuthenticated,
       keycard: null,
+      temporaryId: null,
     });
   }
 
@@ -57,8 +63,18 @@ export default class Entrance extends React.Component {
 
     if (this.state.status === EntranceStatus.NewAccount)
       return (
-        <RegisterAccount
+        <Register
           keycard={this.state.keycard}
+          isTemporary={false}
+          resetView={this.resetView}
+        />
+      );
+
+    if (this.state.status === EntranceStatus.NewTemp)
+      return (
+        <Register
+          temporaryId={this.state.temporaryId}
+          isTemporary={true}
           resetView={this.resetView}
         />
       );

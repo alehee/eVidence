@@ -40,5 +40,18 @@ export default class FetchService {
       .then((result) => callback(result));
   }
 
+  static entranceEnterTemporary(callback, id, name, surname) {
+    const params = new URLSearchParams();
+    params.set("id", id);
+    params.set("name", name);
+    params.set("surname", surname);
+
+    fetch(Env.API_HOST + "/entrance/temporary/enter?" + params.toString(), {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
   //#endregion
 }

@@ -4,7 +4,7 @@ import LoadingComponent from "../Essentials/LoadingComponent";
 import ScreenKeyboard from "./ScreenKeyboard";
 import toast from "react-hot-toast";
 
-export default class RegisterAccount extends React.Component {
+export default class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +20,8 @@ export default class RegisterAccount extends React.Component {
 
     this.callbackDepartments = this.callbackDepartments.bind(this);
     this.callbackInput = this.callbackInput.bind(this);
-    this.callbackRegister = this.callbackRegister.bind(this);
+    this.callbackRegisterAccount = this.callbackRegisterAccount.bind(this);
+    this.callbackRegisterTemporary = this.callbackRegisterTemporary.bind(this);
     this.buttonValidateAndRegister = this.buttonValidateAndRegister.bind(this);
   }
 
@@ -40,7 +41,7 @@ export default class RegisterAccount extends React.Component {
     this.setState({ inputs: inputs });
   }
 
-  callbackRegister(response) {
+  callbackRegisterAccount(response) {
     if (response.success) {
       toast("Zarejestrowano pomyślnie! Odbij się ponownie aby wejść.");
       this.props.resetView();
@@ -49,28 +50,41 @@ export default class RegisterAccount extends React.Component {
     }
   }
 
+  callbackRegisterTemporary(response) {
+    console.log(response);
+  }
+
   buttonValidateAndRegister() {
     if (
       this.state.inputs.name === "" ||
       this.state.inputs.surname === "" ||
-      this.state.selectedDepartment === null
+      (!this.props.isTemporary && this.state.selectedDepartment === null)
     ) {
       toast("Wypełnij wszystkie pola rejestracji!");
       return;
     }
 
-    FetchService.registerAccount(
-      this.callbackRegister,
-      this.props.keycard,
-      this.state.inputs.name,
-      this.state.inputs.surname,
-      this.state.selectedDepartment
-    );
+    if (!this.props.isTemporary)
+      FetchService.registerAccount(
+        this.callbackRegisterAccount,
+        this.props.keycard,
+        this.state.inputs.name,
+        this.state.inputs.surname,
+        this.state.selectedDepartment
+      );
+    else
+      FetchService.entranceEnterTemporary(
+        this.callbackRegisterTemporary,
+        this.props.temporaryId,
+        this.state.inputs.name,
+        this.state.inputs.surname
+      );
+
     this.setState({ isLoading: true });
   }
 
   buildDepartmentSelect() {
-    if (this.state.departments === null) return;
+    if (this.state.departments === null || this.props.isTemporary) return;
 
     let options = [
       <option selected hidden>
@@ -92,9 +106,13 @@ export default class RegisterAccount extends React.Component {
   }
 
   buildForm() {
+    let headerText = "Rejetracja konta";
+    if (this.props.isTemporary === true)
+      headerText = "Rejestracja użytkownika tymczasowego";
+
     return (
       <div>
-        <div className="h4 text-center my-3">Rejestracja konta</div>
+        <div className="h4 text-center my-3">{headerText}</div>
         <input
           type="text"
           className="form-control w-75 my-2 mx-auto"
