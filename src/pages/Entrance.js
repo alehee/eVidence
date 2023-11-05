@@ -1,5 +1,5 @@
 import React from "react";
-import EntranceStatus from "../helpers/EntranceStatus";
+import CardStatus from "../helpers/CardStatus";
 import LoadingComponent from "../components/Essentials/LoadingComponent";
 import CardReader from "../components/CardReader";
 import FetchService from "../services/FetchService";
@@ -11,7 +11,7 @@ export default class Entrance extends React.Component {
     super(props);
     this.state = {
       isLoading: false,
-      status: EntranceStatus.NotAuthenticated,
+      status: CardStatus.NotAuthenticated,
       keycard: null,
       accountId: null,
       temporaryId: null,
@@ -54,7 +54,7 @@ export default class Entrance extends React.Component {
       this.setState({ accountId: response.result.instance.id });
       return;
     }
-    this.setState({ isLoading: false, status: EntranceStatus.NewAccount });
+    this.setState({ isLoading: false, status: CardStatus.NewAccount });
   }
 
   callbackAccountCheck(response) {
@@ -93,7 +93,7 @@ export default class Entrance extends React.Component {
       );
       return;
     }
-    this.setState({ isLoading: false, status: EntranceStatus.NewTemp });
+    this.setState({ isLoading: false, status: CardStatus.NewTemp });
   }
 
   callbackEntranceToggle(response, isExit) {
@@ -110,7 +110,7 @@ export default class Entrance extends React.Component {
   resetView() {
     this.setState({
       isLoading: false,
-      status: EntranceStatus.NotAuthenticated,
+      status: CardStatus.NotAuthenticated,
       keycard: null,
       accountId: null,
       temporaryId: null,
@@ -120,7 +120,7 @@ export default class Entrance extends React.Component {
   build() {
     if (this.state.isLoading) return <LoadingComponent />;
 
-    if (this.state.status === EntranceStatus.NewAccount)
+    if (this.state.status === CardStatus.NewAccount)
       return (
         <Register
           keycard={this.state.keycard}
@@ -129,7 +129,7 @@ export default class Entrance extends React.Component {
         />
       );
 
-    if (this.state.status === EntranceStatus.NewTemp)
+    if (this.state.status === CardStatus.NewTemp)
       return (
         <Register
           temporaryId={this.state.temporaryId}
