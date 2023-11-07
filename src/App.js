@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Administration from "./pages/Administration";
@@ -9,7 +9,7 @@ import Header from "./components/Essentials/Header";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -17,7 +17,7 @@ function App() {
         <Route path="/entrance" element={<Entrance />} />
         <Route path="/checkpoint" element={<Checkpoint />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
