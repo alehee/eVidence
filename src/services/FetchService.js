@@ -14,6 +14,10 @@ export default class FetchService {
       .then((array) => callback(array));
   }
 
+  //#endregion
+
+  //#region Departments and groups
+
   static getDepartments(callback) {
     fetch(Env.API_HOST + "/structure/department", {
       method: "GET",
@@ -22,7 +26,15 @@ export default class FetchService {
       .then((array) => callback(array));
   }
 
-  //#endregion
+  static getGroupsForDepartment(callback, departmentId) {
+    fetch(Env.API_HOST + "/structure/department/" + departmentId + "/groups", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((array) => callback(array));
+  }
+
+  //#region
 
   //#region Entrance
 
@@ -96,6 +108,48 @@ export default class FetchService {
     })
       .then((response) => response.json())
       .then((result) => callback(result, true));
+  }
+
+  //#endregion
+
+  //#region Checkpoint
+
+  static checkpointAccountCheck(callback, accountId) {
+    //TODO
+  }
+
+  static checkpointAccountProcessStart(
+    callback,
+    departmentId,
+    accountId,
+    processId
+  ) {
+    //TODO
+  }
+
+  static checkpointAccountProcessStop(callback, accountId) {
+    //TODO
+  }
+
+  static checkpointTemporaryCheck(callback, temporaryEntranceHistoryId) {
+    //TODO
+  }
+
+  static checkpointTemporaryProcessStart(
+    callback,
+    departmentId,
+    temporaryEntranceHistoryId,
+    processId
+  ) {
+    //TODO
+  }
+
+  static checkpointTemporaryProcessStop(callback, temporaryEntranceHistoryId) {
+    //TODO
+  }
+
+  static getProcessesForGroup(callback, groupId) {
+    //TODO
   }
 
   //#endregion
