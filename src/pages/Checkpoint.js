@@ -10,8 +10,8 @@ export default class Checkpoint extends React.Component {
     super(props);
     this.state = {
       isLoading: false,
-      urlParams: null,
       departmentId: null,
+      departmentName: null,
       departments: null,
       operator: null,
     };
@@ -21,31 +21,28 @@ export default class Checkpoint extends React.Component {
     this.callbackAuthentication = this.callbackAuthentication.bind(this);
     this.callbackTemporaryCheck = this.callbackTemporaryCheck.bind(this);
     this.resetView = this.resetView.bind(this);
+    this.handleDepartmentSelectChange =
+      this.handleDepartmentSelectChange.bind(this);
     this.buildDepartmentSelect = this.buildDepartmentSelect.bind(this);
     this.build = this.build.bind(this);
   }
 
   componentDidMount() {
     FetchService.getDepartments(this.callbackDepartments);
-
-    const params = new URLSearchParams(window.location.search);
-    if (!params.has("id")) {
-      return;
-    }
-    const id = parseInt(params.get("id"));
-    if (!isNaN(id)) this.setState({ urlParams: { id: id } });
   }
 
   callbackDepartments(response) {
+    const params = new URLSearchParams(window.location.search);
+    let id = null;
+    if (params.has("id")) {
+      id = parseInt(params.get("id"));
+    }
+
     let departments = [];
     response.result.forEach((element) => {
       departments.push(element);
-      console.log(this.state.urlParams);
-      if (
-        this.state.urlParams !== null &&
-        element.id === this.state.urlParams.id
-      )
-        this.setState({ departmentId: this.state.urlParams.id });
+      if (!isNaN(id) && element.id === id)
+        this.setState({ departmentId: id, departmentName: element.name });
     });
 
     this.setState({ isLoading: false, departments: departments });
@@ -58,7 +55,9 @@ export default class Checkpoint extends React.Component {
 
   callbackAuthentication(response) {
     if (!response.success) {
-      toast("Wystąpił problem z rozpoznaniem karty. Spróbuj ponownie później.");
+      toast.error(
+        "Wystąpił problem z rozpoznaniem karty. Spróbuj ponownie później."
+      );
       this.resetView();
       return;
     }
@@ -77,13 +76,15 @@ export default class Checkpoint extends React.Component {
       return;
     }
 
-    toast("Karta nie jest zarejestrowana!");
+    toast.error("Karta nie jest zarejestrowana!");
     this.resetView();
   }
 
   callbackTemporaryCheck(response) {
     if (!response.success) {
-      toast("Wystąpił problem z rozpoznaniem karty. Spróbuj ponownie później.");
+      toast.error(
+        "Wystąpił problem z rozpoznaniem karty. Spróbuj ponownie później."
+      );
       this.resetView();
       return;
     }
@@ -96,7 +97,7 @@ export default class Checkpoint extends React.Component {
       return;
     }
 
-    toast("Karta tymczasowa nie jest zarejestrowana!");
+    toast.error("Karta tymczasowa nie jest zarejestrowana!");
     this.resetView();
   }
 
@@ -104,6 +105,16 @@ export default class Checkpoint extends React.Component {
     this.setState({
       isLoading: false,
       operator: null,
+    });
+  }
+
+  handleDepartmentSelectChange(e) {
+    let index = e.nativeEvent.target.selectedIndex;
+    let text = e.nativeEvent.target[index].text;
+
+    this.setState({
+      departmentId: e.target.value,
+      departmentName: text,
     });
   }
 
@@ -124,7 +135,7 @@ export default class Checkpoint extends React.Component {
         <div>Bramka procesów dla działu</div>
         <select
           className="form-control w-75 my-2 mx-auto"
-          onChange={(e) => this.setState({ departmentId: e.target.value })}
+          onChange={this.handleDepartmentSelectChange}
           value={this.state.departmentId}
         >
           {options}
@@ -144,6 +155,7 @@ export default class Checkpoint extends React.Component {
           resetView={this.resetView}
           operator={this.state.operator}
           departmentId={this.state.departmentId}
+          departmentName={this.state.departmentName}
         />
       );
 

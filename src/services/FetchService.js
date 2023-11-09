@@ -115,7 +115,14 @@ export default class FetchService {
   //#region Checkpoint
 
   static checkpointAccountCheck(callback, accountId) {
-    //TODO
+    const params = new URLSearchParams();
+    params.set("id", accountId);
+
+    fetch(Env.API_HOST + "/checkpoint/check?" + params.toString(), {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
   }
 
   static checkpointAccountProcessStart(
@@ -124,15 +131,40 @@ export default class FetchService {
     accountId,
     processId
   ) {
-    //TODO
+    const params = new URLSearchParams();
+    params.set("accountId", accountId);
+    params.set("departmentId", departmentId);
+
+    fetch(
+      Env.API_HOST + "/checkpoint/start/" + processId + "?" + params.toString(),
+      {
+        method: "POST",
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => callback(result));
   }
 
   static checkpointAccountProcessStop(callback, accountId) {
-    //TODO
+    const params = new URLSearchParams();
+    params.set("accountId", accountId);
+
+    fetch(Env.API_HOST + "/checkpoint/stop?" + params.toString(), {
+      method: "PUT",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
   }
 
   static checkpointTemporaryCheck(callback, temporaryEntranceHistoryId) {
-    //TODO
+    const params = new URLSearchParams();
+    params.set("id", temporaryEntranceHistoryId);
+
+    fetch(Env.API_HOST + "/checkpoint/temporary/check?" + params.toString(), {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
   }
 
   static checkpointTemporaryProcessStart(
@@ -141,15 +173,41 @@ export default class FetchService {
     temporaryEntranceHistoryId,
     processId
   ) {
-    //TODO
+    const params = new URLSearchParams();
+    params.set("temporaryEntranceHistoryId", temporaryEntranceHistoryId);
+    params.set("departmentId", departmentId);
+
+    fetch(
+      Env.API_HOST +
+        "/checkpoint/temporary/start/" +
+        processId +
+        "?" +
+        params.toString(),
+      {
+        method: "POST",
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => callback(result));
   }
 
   static checkpointTemporaryProcessStop(callback, temporaryEntranceHistoryId) {
-    //TODO
+    const params = new URLSearchParams();
+    params.set("temporaryEntranceHistoryId", temporaryEntranceHistoryId);
+
+    fetch(Env.API_HOST + "/checkpoint/temporary/stop?" + params.toString(), {
+      method: "PUT",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
   }
 
   static getProcessesForGroup(callback, groupId) {
-    //TODO
+    fetch(Env.API_HOST + "/process/group/" + groupId, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((array) => callback(array));
   }
 
   //#endregion
