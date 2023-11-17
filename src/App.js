@@ -6,6 +6,7 @@ import Administration from "./pages/Administration";
 import Entrance from "./pages/Entrance";
 import Checkpoint from "./pages/Checkpoint";
 import Header from "./components/Essentials/Header";
+import Admins from "./pages/administration/Admins";
 
 function App() {
   return (
@@ -13,9 +14,10 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/administration" element={<Administration />} />
         <Route path="/entrance" element={<Entrance />} />
         <Route path="/checkpoint" element={<Checkpoint />} />
+        <Route path="/administration" element={<Administration />} />
+        <Route path="/administration/admins" element={<Admins />} />
       </Routes>
     </BrowserRouter>
   );

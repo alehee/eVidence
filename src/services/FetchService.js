@@ -211,4 +211,38 @@ export default class FetchService {
   }
 
   //#endregion
+
+  //#region Administration
+
+  static administrationLogin(callback, login, password) {
+    const params = new URLSearchParams();
+    params.set("login", login);
+    params.set("password", password);
+
+    fetch(Env.API_HOST + "/administrator/authenticate?" + params.toString(), {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static administrationPasswordChangeOwn(
+    callback,
+    login,
+    oldPassword,
+    newPassword
+  ) {
+    const params = new URLSearchParams();
+    params.set("login", login);
+    params.set("oldPassword", oldPassword);
+    params.set("newPassword", newPassword);
+
+    fetch(Env.API_HOST + "/administrator/changepassword?" + params.toString(), {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  //#endregion
 }
