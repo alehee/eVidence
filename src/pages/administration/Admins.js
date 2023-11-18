@@ -3,7 +3,8 @@ import AuthenticationService from "../../services/AuthenticationService";
 import { Navigate } from "react-router-dom";
 import LoadingComponent from "../../components/Essentials/LoadingComponent";
 import TopBar from "../../components/Administration/TopBar";
-import PasswordChangeOwn from "../../components/Administration/PasswordChangeOwn";
+import PasswordChangeOwn from "../../components/Administration/Admins/PasswordChangeOwn";
+import AdministratorsList from "../../components/Administration/Admins/AdministratorsList";
 
 export default class Admins extends React.Component {
   constructor(props) {
@@ -12,11 +13,18 @@ export default class Admins extends React.Component {
       isLoading: true,
       user: null,
     };
+
+    this.buildAdministratorsList = this.buildAdministratorsList.bind(this);
   }
 
   componentDidMount() {
     let user = AuthenticationService.getActiveUser();
     this.setState({ isLoading: false, user: user });
+  }
+
+  buildAdministratorsList() {
+    if (!AuthenticationService.hasPermissionTo("administrator")) return;
+    return <AdministratorsList />;
   }
 
   render() {
@@ -35,6 +43,7 @@ export default class Admins extends React.Component {
             <PasswordChangeOwn />
           </div>
         </div>
+        <div>{this.buildAdministratorsList()}</div>
       </div>
     );
   }

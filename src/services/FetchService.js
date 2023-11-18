@@ -244,5 +244,46 @@ export default class FetchService {
       .then((result) => callback(result));
   }
 
+  static administrationGetAdministrators(callback) {
+    fetch(Env.API_HOST + "/administrator/", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static administrationEditAdministrator(callback, administator) {
+    const params = new URLSearchParams();
+    params.set("login", administator.login);
+    params.set(
+      "permissionAdministrator",
+      administator.permissions.administator
+    );
+    params.set("permissionUser", administator.permissions.user);
+    params.set("permissionProcess", administator.permissions.process);
+    params.set("permissionReport", administator.permissions.report);
+
+    fetch(
+      Env.API_HOST +
+        "/administrator/" +
+        administator.id +
+        "?" +
+        params.toString(),
+      {
+        method: "PUT",
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static administrationDeleteAdministrator(callback, id) {
+    fetch(Env.API_HOST + "/administrator/" + id, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
   //#endregion
 }

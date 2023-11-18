@@ -1,7 +1,7 @@
 import React from "react";
 import toast from "react-hot-toast";
-import AuthenticationService from "../../services/AuthenticationService";
-import FetchService from "../../services/FetchService";
+import AuthenticationService from "../../../services/AuthenticationService";
+import FetchService from "../../../services/FetchService";
 
 export default class PasswordChangeOwn extends React.Component {
   constructor(props) {
