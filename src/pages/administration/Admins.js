@@ -43,7 +43,9 @@ export default class Admins extends React.Component {
             <PasswordChangeOwn />
           </div>
         </div>
-        <div>{this.buildAdministratorsList()}</div>
+        <div className="w-75 mx-auto row text-center border border-dark rounded m-2">
+          {this.buildAdministratorsList()}
+        </div>
       </div>
     );
   }

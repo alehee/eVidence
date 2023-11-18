@@ -18,13 +18,14 @@ export default class AdministratorsList extends React.Component {
   }
 
   callbackAdministrators(response) {
+    console.log(response);
     this.setState({ isLoading: false });
     if (!response.success) {
       toast.error("Wystąpił problem podczas przetwarzania administratorów.");
       return;
     }
 
-    this.setState({ administators: response.message });
+    this.setState({ administrators: response.result });
   }
 
   buildAdministratorsList() {
@@ -39,7 +40,7 @@ export default class AdministratorsList extends React.Component {
     if (this.state.isLoading) return <LoadingComponent />;
 
     return (
-      <div className="w-50 mx-auto">
+      <div className="mx-auto">
         <div className="my-2">Konta administratorów</div>
         {this.buildAdministratorsList()}
       </div>
