@@ -244,6 +244,25 @@ export default class FetchService {
       .then((result) => callback(result));
   }
 
+  static administrationCreateAdministrator(callback, administator) {
+    const params = new URLSearchParams();
+    params.set("login", administator.login);
+    params.set("password", administator.password);
+    params.set(
+      "permissionAdministrator",
+      administator.permissions.administator
+    );
+    params.set("permissionUser", administator.permissions.user);
+    params.set("permissionProcess", administator.permissions.process);
+    params.set("permissionReport", administator.permissions.report);
+
+    fetch(Env.API_HOST + "/administrator?" + params.toString(), {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
   static administrationGetAdministrators(callback) {
     fetch(Env.API_HOST + "/administrator/", {
       method: "GET",
@@ -284,6 +303,89 @@ export default class FetchService {
       .then((response) => response.json())
       .then((result) => callback(result));
   }
+
+  //#endregion
+
+  //#region Account
+
+  static accountGetAll(callback) {
+    fetch(Env.API_HOST + "/account", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static accountGet(callback, id) {
+    fetch(Env.API_HOST + "/account/" + id, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static accountEdit(callback, account) {
+    const params = new URLSearchParams();
+    params.set("departmentId", account.departmentId);
+    params.set("name", account.name);
+    params.set("surname", account.surname);
+    params.set("keycard", account.keycard);
+    fetch(Env.API_HOST + "/account/" + id + "?" + params.toString(), {
+      method: "PUT",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static accountResetKeycard(callback, id) {
+    fetch(Env.API_HOST + "/account/" + id + "/resetkeycard", {
+      method: "PATCH",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static accountDelete(callback, id) {
+    fetch(Env.API_HOST + "/account/" + id, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  //#endregion
+
+  //#region Temporary Card management
+
+  static temporaryCardCreate(callback, keycard) {
+    const params = new URLSearchParams();
+    params.set("keycard", keycard);
+    fetch(Env.API_HOST + "/account/temporary/card?" + params.toString(), {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static temporaryCardReset(callback, id) {
+    fetch(Env.API_HOST + "/account/temporary/card/" + id + "/resetkeycard", {
+      method: "PATCH",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  //#endregion
+
+  //#region Processes
+
+  //#endregion
+
+  //#region Report
+
+  //#endregion
+
+  //#region Structure
 
   //#endregion
 }
