@@ -379,6 +379,64 @@ export default class FetchService {
 
   //#region Processes
 
+  static processAdd(callback, process) {
+    const params = new URLSearchParams();
+    params.set("groupId", process.groupId);
+    params.set("name", process.name);
+    params.set("shortName", process.shortName);
+    params.set("colorCode", process.color);
+    fetch(Env.API_HOST + "/process?" + params.toString(), {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static processGetAll(callback) {
+    fetch(Env.API_HOST + "/process", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static processGet(callback, id) {
+    fetch(Env.API_HOST + "/process/" + id, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static processGetByGroup(callback, groupId) {
+    fetch(Env.API_HOST + "/process/group/" + groupId, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static processEdit(callback, process) {
+    const params = new URLSearchParams();
+    params.set("groupId", process.groupId);
+    params.set("name", process.name);
+    params.set("shortName", process.shortName);
+    params.set("colorCode", process.color);
+    fetch(Env.API_HOST + "/process/" + process.id + "?" + params.toString(), {
+      method: "PUT",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static processDelete(callback, id) {
+    fetch(Env.API_HOST + "/process/" + id, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
   //#endregion
 
   //#region Report
