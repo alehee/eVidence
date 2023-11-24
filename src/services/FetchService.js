@@ -248,13 +248,16 @@ export default class FetchService {
     const params = new URLSearchParams();
     params.set("login", administator.login);
     params.set("password", administator.password);
-    params.set(
-      "permissionAdministrator",
-      administator.permissions.administator
-    );
-    params.set("permissionUser", administator.permissions.user);
-    params.set("permissionProcess", administator.permissions.process);
-    params.set("permissionReport", administator.permissions.report);
+
+    if (administator.permissions !== undefined) {
+      params.set(
+        "permissionAdministrator",
+        administator.permissions.administator
+      );
+      params.set("permissionUser", administator.permissions.user);
+      params.set("permissionProcess", administator.permissions.process);
+      params.set("permissionReport", administator.permissions.report);
+    }
 
     fetch(Env.API_HOST + "/administrator?" + params.toString(), {
       method: "POST",
@@ -330,7 +333,7 @@ export default class FetchService {
     params.set("name", account.name);
     params.set("surname", account.surname);
     params.set("keycard", account.keycard);
-    fetch(Env.API_HOST + "/account/" + id + "?" + params.toString(), {
+    fetch(Env.API_HOST + "/account/" + account.id + "?" + params.toString(), {
       method: "PUT",
     })
       .then((response) => response.json())

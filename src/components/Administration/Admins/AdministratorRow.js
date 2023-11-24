@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import FetchService from "../../../services/FetchService";
 
 const AdministratorRow = ({ administrator }) => {
-  console.log(administrator);
   const [login, setLogin] = useState(administrator.login);
   const [permissionAdministrator, setPermissionAdministrator] = useState(
     administrator.permissionAdministrator
@@ -46,37 +46,53 @@ const AdministratorRow = ({ administrator }) => {
         />
       </div>
       <div className="col form-check">
-        <div className="row d-block">
+        <div className="d-block">
           <input
             class="form-check-input"
             type="checkbox"
             checked={permissionAdministrator}
+            onChange={() => {
+              setPermissionAdministrator(!permissionAdministrator);
+              setIsChanged(true);
+            }}
           />
           <label class="form-check-label">Uprawnienia administatora</label>
         </div>
-        <div className="row d-block">
+        <div className="d-block">
           <input
             class="form-check-input"
             type="checkbox"
             checked={permissionUser}
+            onChange={() => {
+              setPermissionUser(!permissionUser);
+              setIsChanged(true);
+            }}
           />
           <label class="form-check-label">Uprawnienia użytkowników</label>
         </div>
-        <div className="row d-block">
+        <div className="d-block">
           <input
             class="form-check-input"
             type="checkbox"
             checked={permissionProcess}
+            onChange={() => {
+              setPermissionProcess(!permissionProcess);
+              setIsChanged(true);
+            }}
           />
           <label class="form-check-label">
             Uprawnienia procesów i struktury
           </label>
         </div>
-        <div className="row d-block">
+        <div className="d-block">
           <input
             class="form-check-input"
             type="checkbox"
             checked={permissionReport}
+            onChange={() => {
+              setPermissionReport(!permissionReport);
+              setIsChanged(true);
+            }}
           />
           <label class="form-check-label">Uprawnienia podsumowań</label>
         </div>
@@ -86,11 +102,35 @@ const AdministratorRow = ({ administrator }) => {
           <button
             className="btn btn-primary"
             onClick={() => {
-              // TODO
+              FetchService.administrationEditAdministrator(callbackUpdate, {
+                id: administrator.id,
+                login: login,
+                permissions: {
+                  administator: permissionAdministrator,
+                  user: permissionUser,
+                  process: permissionProcess,
+                  report: permissionReport,
+                },
+              });
             }}
             disabled={!isChanged}
           >
             Aktualizuj
+          </button>
+          <div
+            class="spinner-border mx-2"
+            role="status"
+            hidden={!isUpdating}
+          ></div>
+        </div>
+        <div className="row">
+          <button
+            className="btn btn-warning"
+            onClick={() => {
+              // TODO
+            }}
+          >
+            Resetuj hasło
           </button>
           <div
             class="spinner-border mx-2"
