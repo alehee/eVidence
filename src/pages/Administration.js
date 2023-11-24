@@ -50,6 +50,14 @@ export default class Administration extends React.Component {
       );
     }
 
+    if (AuthenticationService.hasPermissionTo("users")) {
+      links.push(
+        <Link to={"/administration/users"} className="nav-element d-block">
+          Zarządzanie użytkownikami
+        </Link>
+      );
+    }
+
     return (
       <div className="text-center">
         <div className="h5">MODUŁY PANELU</div>

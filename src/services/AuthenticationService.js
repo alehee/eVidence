@@ -26,7 +26,7 @@ export default class AuthenticationService {
   }
 
   static hasPermissionTo(moduleName) {
-    if (!["administrator", "process", "report", "user"].includes(moduleName))
+    if (!["administrator", "process", "report", "users"].includes(moduleName))
       return false;
 
     let permissions = this.getAllPermissions();

@@ -340,7 +340,6 @@ export default class FetchService {
     params.set("departmentId", account.departmentId);
     params.set("name", account.name);
     params.set("surname", account.surname);
-    params.set("keycard", account.keycard);
     fetch(Env.API_HOST + "/account/" + account.id + "?" + params.toString(), {
       method: "PUT",
     })

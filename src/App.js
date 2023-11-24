@@ -8,6 +8,7 @@ import Checkpoint from "./pages/Checkpoint";
 import Header from "./components/Essentials/Header";
 import Admins from "./pages/administration/Admins";
 import TemporaryCards from "./pages/administration/TemporaryCards";
+import Users from "./pages/administration/Users";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           path="/administration/temporarycards"
           element={<TemporaryCards />}
         />
+        <Route path="/administration/users" element={<Users />} />
       </Routes>
     </BrowserRouter>
   );
