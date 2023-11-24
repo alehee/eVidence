@@ -58,6 +58,30 @@ export default class Administration extends React.Component {
       );
     }
 
+    if (AuthenticationService.hasPermissionTo("administrator")) {
+      links.push(
+        <Link to={"/administration/structure"} className="nav-element d-block">
+          Zarządzanie działami i grupami
+        </Link>
+      );
+    }
+
+    if (AuthenticationService.hasPermissionTo("process")) {
+      links.push(
+        <Link to={"/administration/processes"} className="nav-element d-block">
+          Zarządzanie procesami
+        </Link>
+      );
+    }
+
+    if (AuthenticationService.hasPermissionTo("report")) {
+      links.push(
+        <Link to={"/administration/reports"} className="nav-element d-block">
+          Raporty
+        </Link>
+      );
+    }
+
     return (
       <div className="text-center">
         <div className="h5">MODUŁY PANELU</div>
