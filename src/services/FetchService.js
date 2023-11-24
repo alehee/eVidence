@@ -244,6 +244,14 @@ export default class FetchService {
       .then((result) => callback(result));
   }
 
+  static administrationPasswordReset(callback, id) {
+    fetch(Env.API_HOST + "/administrator/" + id + "/resetpassword", {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
   static administrationCreateAdministrator(callback, administator) {
     const params = new URLSearchParams();
     params.set("login", administator.login);

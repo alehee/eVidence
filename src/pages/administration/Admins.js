@@ -24,7 +24,11 @@ export default class Admins extends React.Component {
 
   buildAdministratorsList() {
     if (!AuthenticationService.hasPermissionTo("administrator")) return;
-    return <AdministratorsList />;
+    return (
+      <div className="w-75 mx-auto row text-center border border-dark rounded m-2">
+        <AdministratorsList />
+      </div>
+    );
   }
 
   render() {
@@ -43,9 +47,7 @@ export default class Admins extends React.Component {
             <PasswordChangeOwn />
           </div>
         </div>
-        <div className="w-75 mx-auto row text-center border border-dark rounded m-2">
-          {this.buildAdministratorsList()}
-        </div>
+        {this.buildAdministratorsList()}
       </div>
     );
   }

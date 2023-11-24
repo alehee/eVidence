@@ -22,7 +22,7 @@ export default class AuthenticationService {
   }
 
   static getAllPermissions() {
-    return sessionStorage.getItem("permissions");
+    return JSON.parse(sessionStorage.getItem("permissions"));
   }
 
   static hasPermissionTo(moduleName) {
@@ -30,7 +30,6 @@ export default class AuthenticationService {
       return false;
 
     let permissions = this.getAllPermissions();
-    if (permissions.includes(moduleName)) return true;
-    return false;
+    return permissions[moduleName];
   }
 }

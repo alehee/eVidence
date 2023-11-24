@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import FetchService from "../../../services/FetchService";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
-const AdministratorRow = ({ administrator }) => {
+const AdministratorRow = ({ administrator, callbackRefresh }) => {
   const [login, setLogin] = useState(administrator.login);
   const [permissionAdministrator, setPermissionAdministrator] = useState(
     administrator.permissionAdministrator
@@ -24,10 +26,69 @@ const AdministratorRow = ({ administrator }) => {
     setIsChanged(false);
 
     if (response.success) {
-      toast.success("Aktualizacja wykonana pomyślnie");
+      toast.success("Aktualizacja wykonana pomyślnie!");
     } else {
       toast.error("Wystąpił problem podczas aktualizacji");
     }
+  }
+
+  function callbackDelete(response) {
+    if (!response.success) {
+      toast.error("Wystąpił problem podczas usuwania administratora");
+      return;
+    }
+    toast.success("Administrator usunięty pomyślnie!");
+    callbackRefresh();
+  }
+
+  function confirmPasswordReset() {
+    confirmAlert({
+      message:
+        "Czy jesteś pewien, że chcesz zresetować hasło dla administratora `" +
+        administrator.login +
+        "`?",
+      buttons: [
+        {
+          label: "Tak",
+          onClick: () => {
+            FetchService.administrationPasswordReset(
+              callbackUpdate,
+              administrator.id
+            );
+          },
+        },
+        {
+          label: "Nie",
+        },
+      ],
+      closeOnEscape: true,
+      closeOnClickOutside: true,
+    });
+  }
+
+  function confirmDeleteAdministrator() {
+    confirmAlert({
+      message:
+        "Czy jesteś pewien, że chcesz usunąć administratora `" +
+        administrator.login +
+        "`?",
+      buttons: [
+        {
+          label: "Tak",
+          onClick: () => {
+            FetchService.administrationDeleteAdministrator(
+              callbackDelete,
+              administrator.id
+            );
+          },
+        },
+        {
+          label: "Nie",
+        },
+      ],
+      closeOnEscape: true,
+      closeOnClickOutside: true,
+    });
   }
 
   return (
@@ -127,7 +188,7 @@ const AdministratorRow = ({ administrator }) => {
           <button
             className="btn btn-warning"
             onClick={() => {
-              // TODO
+              confirmPasswordReset();
             }}
           >
             Resetuj hasło
@@ -142,7 +203,7 @@ const AdministratorRow = ({ administrator }) => {
           <button
             className="btn btn-danger"
             onClick={() => {
-              // TODO
+              confirmDeleteAdministrator();
             }}
           >
             Usuń

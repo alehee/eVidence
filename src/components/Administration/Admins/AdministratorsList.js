@@ -106,7 +106,10 @@ export default class AdministratorsList extends React.Component {
     if (this.state.administrators === null) return;
 
     let administratorsList = this.state.administrators.map((administator) => (
-      <AdministratorRow administrator={administator} />
+      <AdministratorRow
+        administrator={administator}
+        callbackRefresh={this.refreshAdministrators}
+      />
     ));
 
     return (
