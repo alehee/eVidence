@@ -479,5 +479,105 @@ export default class FetchService {
 
   //#region Structure
 
+  static structureGroupGetAll(callback) {
+    fetch(Env.API_HOST + "/structure/group", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static structureGroupAdd(callback, name) {
+    const params = new URLSearchParams();
+    params.set("name", name);
+    fetch(Env.API_HOST + "/structure/group?" + params.toString(), {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  // DO ZMIANY
+  static structureGroupEdit(callback, group) {
+    const params = new URLSearchParams();
+    params.set("name", group.name);
+    fetch(
+      Env.API_HOST + "/structure/group/" + group.id + "?" + params.toString(),
+      {
+        method: "PUT",
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static structureGroupDelete(callback, id) {
+    fetch(Env.API_HOST + "/structure/group/" + id, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static structureDepartmentGetAll(callback) {
+    fetch(Env.API_HOST + "/structure/department", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static structureDepartmentAdd(callback, name) {
+    const params = new URLSearchParams();
+    params.set("name", name);
+    fetch(Env.API_HOST + "/structure/department?" + params.toString(), {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  // DO ZMIANY
+  static structureDepartmentEdit(callback, department) {
+    const params = new URLSearchParams();
+    params.set("name", department.name);
+    fetch(
+      Env.API_HOST +
+        "/structure/department/" +
+        department.id +
+        "?" +
+        params.toString(),
+      {
+        method: "PUT",
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static structureDepartmentDelete(callback, id) {
+    fetch(Env.API_HOST + "/structure/department/" + id, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static structureGroupDepartmentAdd(callback, groupId, departmentId) {
+    fetch(Env.API_HOST + "/structure/group/" + groupId + "/" + departmentId, {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static structureGroupDepartmentDelete(callback, groupId, departmentId) {
+    fetch(Env.API_HOST + "/structure/group/" + groupId + "/" + departmentId, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
   //#endregion
 }
