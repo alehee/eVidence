@@ -368,10 +368,26 @@ export default class FetchService {
 
   //#region Temporary Card management
 
+  static temporaryCardGetAll(callback) {
+    fetch(Env.API_HOST + "/account/temporary", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static temporaryCardGetUsed(callback) {
+    fetch(Env.API_HOST + "/account/temporary/used", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
   static temporaryCardCreate(callback, keycard) {
     const params = new URLSearchParams();
     params.set("keycard", keycard);
-    fetch(Env.API_HOST + "/account/temporary/card?" + params.toString(), {
+    fetch(Env.API_HOST + "/account/temporary?" + params.toString(), {
       method: "POST",
     })
       .then((response) => response.json())
@@ -379,8 +395,16 @@ export default class FetchService {
   }
 
   static temporaryCardReset(callback, id) {
-    fetch(Env.API_HOST + "/account/temporary/card/" + id + "/resetkeycard", {
+    fetch(Env.API_HOST + "/account/temporary/" + id + "/resetkeycard", {
       method: "PATCH",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static temporaryCardDelete(callback, id) {
+    fetch(Env.API_HOST + "/account/temporary/" + id, {
+      method: "DELETE",
     })
       .then((response) => response.json())
       .then((result) => callback(result));

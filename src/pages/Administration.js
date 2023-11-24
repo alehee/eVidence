@@ -34,10 +34,21 @@ export default class Administration extends React.Component {
     let links = [];
 
     links.push(
-      <Link to={"/administration/admins"} className="nav-element">
+      <Link to={"/administration/admins"} className="nav-element d-block">
         Zarządzanie administatorami
       </Link>
     );
+
+    if (AuthenticationService.hasPermissionTo("administrator")) {
+      links.push(
+        <Link
+          to={"/administration/temporarycards"}
+          className="nav-element d-block"
+        >
+          Zarządzanie kartami tymczasowymi
+        </Link>
+      );
+    }
 
     return (
       <div className="text-center">
