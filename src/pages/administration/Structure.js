@@ -21,6 +21,10 @@ export default class Structure extends React.Component {
       if (!AuthenticationService.hasPermissionTo("administrator")) user = null;
     }
 
+    if (user !== null) {
+      // TODO get data
+    }
+
     this.setState({ isLoading: false, user: user });
   }
 

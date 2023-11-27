@@ -37,7 +37,9 @@ export default class TemporaryCards extends React.Component {
       if (!AuthenticationService.hasPermissionTo("administrator")) user = null;
     }
 
-    this.refreshCards();
+    if (user !== null) {
+      this.refreshCards();
+    }
 
     this.setState({ isLoading: false, user: user });
   }

@@ -21,6 +21,10 @@ export default class Reports extends React.Component {
       if (!AuthenticationService.hasPermissionTo("report")) user = null;
     }
 
+    if (user !== null) {
+      // TODO get data
+    }
+
     this.setState({ isLoading: false, user: user });
   }
 

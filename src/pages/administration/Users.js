@@ -31,8 +31,10 @@ export default class Users extends React.Component {
       if (!AuthenticationService.hasPermissionTo("users")) user = null;
     }
 
-    FetchService.getDepartments(this.callbackDepartments);
-    this.refreshUsers();
+    if (user !== null) {
+      FetchService.getDepartments(this.callbackDepartments);
+      this.refreshUsers();
+    }
 
     this.setState({ isLoading: false, user: user });
   }
