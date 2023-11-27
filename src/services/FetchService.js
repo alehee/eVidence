@@ -475,6 +475,36 @@ export default class FetchService {
 
   //#region Report
 
+  static reportGetOnBoard(callback) {
+    fetch(Env.API_HOST + "/report/onboard", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static reportGetEntrance(callback, startDate, stopDate) {
+    const params = new URLSearchParams();
+    params.set("start", startDate);
+    params.set("stop", stopDate);
+    fetch(Env.API_HOST + "/report/entrance?" + params.toString(), {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
+  static reportGetProcess(callback, startDate, stopDate) {
+    const params = new URLSearchParams();
+    params.set("start", startDate);
+    params.set("stop", stopDate);
+    fetch(Env.API_HOST + "/report/process?" + params.toString(), {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
   //#endregion
 
   //#region Structure
