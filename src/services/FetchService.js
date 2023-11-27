@@ -527,7 +527,6 @@ export default class FetchService {
       .then((result) => callback(result));
   }
 
-  // DO ZMIANY
   static structureGroupEdit(callback, group) {
     const params = new URLSearchParams();
     params.set("name", group.name);
@@ -567,7 +566,6 @@ export default class FetchService {
       .then((result) => callback(result));
   }
 
-  // DO ZMIANY
   static structureDepartmentEdit(callback, department) {
     const params = new URLSearchParams();
     params.set("name", department.name);
