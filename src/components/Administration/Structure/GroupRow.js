@@ -3,10 +3,9 @@ import FetchService from "../../../services/FetchService";
 import toast from "react-hot-toast";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import DepartmentsRowGroups from "./DepartmentsRowGroups";
 
-const DepartmentsRow = ({ department, groups, callbackRefresh }) => {
-  const [name, setName] = useState(department.name);
+const GroupRow = ({ group, callbackRefresh }) => {
+  const [name, setName] = useState(group.name);
   const [isChanged, setIsChanged] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -15,10 +14,10 @@ const DepartmentsRow = ({ department, groups, callbackRefresh }) => {
     setIsChanged(false);
 
     if (response.success) {
-      toast.success("Aktualizacja działu wykonana pomyślnie!");
+      toast.success("Aktualizacja grupy wykonana pomyślnie!");
       callbackRefresh();
     } else {
-      toast.error("Wystąpił problem podczas aktualizacji działu.");
+      toast.error("Wystąpił problem podczas aktualizacji grupy.");
     }
   }
 
@@ -27,29 +26,26 @@ const DepartmentsRow = ({ department, groups, callbackRefresh }) => {
     setIsChanged(false);
 
     if (response.success) {
-      toast.success("Dział usunięty pomyślnie!");
+      toast.success("Grupa została usunięta pomyślnie!");
       callbackRefresh();
     } else {
-      toast.error("Wystąpił problem podczas usuwania działu.");
+      toast.error("Wystąpił problem podczas usuwania grupy.");
     }
   }
 
   function confirmDelete() {
     confirmAlert({
       message:
-        "Czy na pewno chcesz usunąć dział `" +
+        "Czy na pewno chcesz usunąć grupę `" +
         name +
         "` z ID " +
-        department.id +
+        group.id +
         "?",
       buttons: [
         {
           label: "Tak",
           onClick: () => {
-            FetchService.structureDepartmentDelete(
-              callbackDelete,
-              department.id
-            );
+            FetchService.structureGroupDelete(callbackDelete, group.id);
           },
         },
         {
@@ -64,7 +60,7 @@ const DepartmentsRow = ({ department, groups, callbackRefresh }) => {
   return (
     <div className="my-5">
       <div className="row m-2">
-        <div className="col-1 text-center">ID {department.id}</div>
+        <div className="col-1 text-center">ID {group.id}</div>
         <div className="col">
           <input
             type="text"
@@ -81,8 +77,8 @@ const DepartmentsRow = ({ department, groups, callbackRefresh }) => {
           <button
             className="btn btn-primary"
             onClick={() => {
-              FetchService.structureDepartmentEdit(callbackUpdate, {
-                id: department.id,
+              FetchService.structureGroupEdit(callbackUpdate, {
+                id: group.id,
                 name: name,
               });
             }}
@@ -112,28 +108,8 @@ const DepartmentsRow = ({ department, groups, callbackRefresh }) => {
           ></div>
         </div>
       </div>
-      <div className="row m-2">
-        <div
-          class="btn btn-info"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target={"#structure-departments-groups-" + department.id}
-        >
-          Grupy działu
-        </div>
-        <div
-          class="collapse"
-          id={"structure-departments-groups-" + department.id}
-        >
-          <DepartmentsRowGroups
-            department={department}
-            groups={groups}
-            callbackRefresh={callbackRefresh}
-          />
-        </div>
-      </div>
     </div>
   );
 };
 
-export default DepartmentsRow;
+export default GroupRow;
