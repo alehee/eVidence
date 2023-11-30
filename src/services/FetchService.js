@@ -482,7 +482,7 @@ export default class FetchService {
       .then((result) => callback(result));
   }
 
-  static reportGetEntrance(callback, startDate, stopDate) {
+  static reportGetEntrances(callback, startDate, stopDate) {
     const params = new URLSearchParams();
     params.set("start", startDate);
     params.set("stop", stopDate);

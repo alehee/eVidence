@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import LoadingComponent from "../../components/Essentials/LoadingComponent";
 import TopBar from "../../components/Administration/TopBar";
 import ReportPresence from "../../components/Administration/Reports/ReportPresence";
+import ReportEntrances from "../../components/Administration/Reports/ReportEntrances";
 
 export default class Reports extends React.Component {
   constructor(props) {
@@ -65,7 +66,7 @@ export default class Reports extends React.Component {
         return <ReportPresence />;
 
       case "ENTRANCE":
-        return <div>ENTRANCE BOARD TODO</div>;
+        return <ReportEntrances />;
 
       case "PROCESS":
         return <div>PROCESS BOARD TODO</div>;
