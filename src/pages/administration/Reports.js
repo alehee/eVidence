@@ -12,7 +12,11 @@ export default class Reports extends React.Component {
     this.state = {
       isLoading: true,
       user: null,
+      selectedView: "PRESENCE",
     };
+
+    this.buildViewSelect = this.buildViewSelect.bind(this);
+    this.buildView = this.buildView.bind(this);
   }
 
   componentDidMount() {
@@ -21,11 +25,63 @@ export default class Reports extends React.Component {
       if (!AuthenticationService.hasPermissionTo("report")) user = null;
     }
 
-    if (user !== null) {
-      // TODO get data
-    }
-
     this.setState({ isLoading: false, user: user });
+  }
+
+  buildViewSelect() {
+    let options = [];
+
+    options.push(
+      <option className="text-dark" value="PRESENCE" selected>
+        Obecność
+      </option>
+    );
+    options.push(
+      <option className="text-dark" value="ENTRANCE" selected>
+        Rejestr wejść
+      </option>
+    );
+    options.push(
+      <option className="text-dark" value="PROCESS" selected>
+        Rejestr procesów
+      </option>
+    );
+    options.push(
+      <option className="text-dark" value="DASHBOARD" selected>
+        Podsumowanie
+      </option>
+    );
+
+    return (
+      <select
+        className="form-select text-dark"
+        value={this.state.selectedView}
+        onChange={(event) => {
+          this.setState({ selectedView: event.target.value });
+        }}
+      >
+        {options}
+      </select>
+    );
+  }
+
+  buildView() {
+    switch (this.state.selectedView) {
+      case "PRESENCE":
+        return <div>PRESENCE BOARD TODO</div>;
+
+      case "ENTRANCE":
+        return <div>ENTRANCE BOARD TODO</div>;
+
+      case "PROCESS":
+        return <div>PROCESS BOARD TODO</div>;
+
+      case "DASHBOARD":
+        return <div>DASHBOARD BOARD TODO</div>;
+
+      default:
+        return <div className="h5 text-center">Nie ma takiego raportu!</div>;
+    }
   }
 
   render() {
@@ -37,7 +93,8 @@ export default class Reports extends React.Component {
       <div>
         <TopBar />
         <div className="text-center my-4 h4 fst-italic">Raporty</div>
-        <div></div>
+        <div className="w-50 mx-auto">{this.buildViewSelect()}</div>
+        <div>{this.buildView()}</div>
       </div>
     );
   }
