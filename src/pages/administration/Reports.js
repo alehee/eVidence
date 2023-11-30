@@ -5,6 +5,7 @@ import LoadingComponent from "../../components/Essentials/LoadingComponent";
 import TopBar from "../../components/Administration/TopBar";
 import FetchService from "../../services/FetchService";
 import toast from "react-hot-toast";
+import ReportPresence from "../../components/Administration/Reports/ReportPresence";
 
 export default class Reports extends React.Component {
   constructor(props) {
@@ -68,7 +69,7 @@ export default class Reports extends React.Component {
   buildView() {
     switch (this.state.selectedView) {
       case "PRESENCE":
-        return <div>PRESENCE BOARD TODO</div>;
+        return <ReportPresence />;
 
       case "ENTRANCE":
         return <div>ENTRANCE BOARD TODO</div>;
@@ -94,7 +95,7 @@ export default class Reports extends React.Component {
         <TopBar />
         <div className="text-center my-4 h4 fst-italic">Raporty</div>
         <div className="w-50 mx-auto">{this.buildViewSelect()}</div>
-        <div>{this.buildView()}</div>
+        <div className="w-75 mx-auto">{this.buildView()}</div>
       </div>
     );
   }
