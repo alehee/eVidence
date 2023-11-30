@@ -40,7 +40,6 @@ export default class DepartmentsList extends React.Component {
   }
 
   callbackNewDepartment(response) {
-    console.log(response);
     if (!response.success) {
       toast.error("Wystąpił problem podczas dodawania nowego działu.");
       return;

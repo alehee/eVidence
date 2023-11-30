@@ -556,6 +556,14 @@ export default class FetchService {
       .then((result) => callback(result));
   }
 
+  static structureDepartmentGetByGroup(callback, groupId) {
+    fetch(Env.API_HOST + "/structure/group/" + groupId + "/departments", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+
   static structureDepartmentAdd(callback, name) {
     const params = new URLSearchParams();
     params.set("name", name);

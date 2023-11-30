@@ -5,6 +5,7 @@ import LoadingComponent from "../../components/Essentials/LoadingComponent";
 import TopBar from "../../components/Administration/TopBar";
 import FetchService from "../../services/FetchService";
 import toast from "react-hot-toast";
+import ProcessesList from "../../components/Administration/Processes/ProcessesList";
 
 export default class Processes extends React.Component {
   constructor(props) {
@@ -12,7 +13,12 @@ export default class Processes extends React.Component {
     this.state = {
       isLoading: true,
       user: null,
+      groups: null,
     };
+
+    this.callbackGroups = this.callbackGroups.bind(this);
+    this.refreshData = this.refreshData.bind(this);
+    this.sortName = this.sortName.bind(this);
   }
 
   componentDidMount() {
@@ -21,7 +27,29 @@ export default class Processes extends React.Component {
       if (!AuthenticationService.hasPermissionTo("process")) user = null;
     }
 
+    this.refreshData();
     this.setState({ isLoading: false, user: user });
+  }
+
+  callbackGroups(response) {
+    if (!response.success) {
+      toast.error("Wystąpił problem podczas przetwarzania grup.");
+      return;
+    }
+
+    let groups = response.result;
+    groups.sort(this.sortName);
+    this.setState({ groups: groups });
+  }
+
+  refreshData() {
+    FetchService.structureGroupGetAll(this.callbackGroups);
+  }
+
+  sortName(a, b) {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+    return nameA.localeCompare(nameB);
   }
 
   render() {
@@ -29,13 +57,21 @@ export default class Processes extends React.Component {
 
     if (this.state.user === null) return <Navigate to={"/administration"} />;
 
+    if (this.state.groups === null) return <LoadingComponent />;
+
+    let groupViews = this.state.groups.map((group) => {
+      return (
+        <ProcessesList group={group} callbackRefresh={this.callbackRefresh} />
+      );
+    });
+
     return (
       <div>
         <TopBar />
         <div className="text-center my-4 h4 fst-italic">
           Zarządzanie procesami
         </div>
-        <div></div>
+        <div className="w-75 mx-auto">{groupViews}</div>
       </div>
     );
   }
