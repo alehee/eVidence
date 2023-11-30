@@ -2,6 +2,8 @@ import React from "react";
 import FetchService from "../../../services/FetchService";
 import toast from "react-hot-toast";
 import LoadingComponent from "../../Essentials/LoadingComponent";
+import { CSVLink } from "react-csv";
+import CsvParserService from "../../../services/CsvParserService";
 
 export default class ReportPresence extends React.Component {
   constructor(props) {
@@ -135,11 +137,25 @@ export default class ReportPresence extends React.Component {
 
     return (
       <div>
-        <div className="my-5">
+        <div className="d-flex flex-row-reverse my-2">
+          <CSVLink
+            className="btn btn-primary"
+            filename={
+              "obecnosc_" + new Date().toISOString().split(".")[0] + ".csv"
+            }
+            data={CsvParserService.parsePresence(
+              this.state.accountEntrances,
+              this.state.temporaryEntrances
+            )}
+          >
+            Eksportuj do CSV
+          </CSVLink>
+        </div>
+        <div className="mb-5">
           <div className="my-2 text-center h5">Obecność użytkowników</div>
           {this.buildAccountTable()}
         </div>
-        <div className="my-5">
+        <div className="mb-5">
           <div className="my-2 text-center h5">Obecność kart tymczasowych</div>
           {this.buildTemporaryTable()}
         </div>

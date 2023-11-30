@@ -3,8 +3,6 @@ import AuthenticationService from "../../services/AuthenticationService";
 import { Navigate } from "react-router-dom";
 import LoadingComponent from "../../components/Essentials/LoadingComponent";
 import TopBar from "../../components/Administration/TopBar";
-import FetchService from "../../services/FetchService";
-import toast from "react-hot-toast";
 import ReportPresence from "../../components/Administration/Reports/ReportPresence";
 
 export default class Reports extends React.Component {
@@ -45,11 +43,6 @@ export default class Reports extends React.Component {
     options.push(
       <option className="text-dark" value="PROCESS" selected>
         Rejestr procesów
-      </option>
-    );
-    options.push(
-      <option className="text-dark" value="DASHBOARD" selected>
-        Podsumowanie
       </option>
     );
 
