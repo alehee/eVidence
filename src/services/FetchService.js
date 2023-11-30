@@ -452,7 +452,6 @@ export default class FetchService {
 
   static processEdit(callback, process) {
     const params = new URLSearchParams();
-    params.set("groupId", process.groupId);
     params.set("name", process.name);
     params.set("shortName", process.shortName);
     params.set("colorCode", process.color);

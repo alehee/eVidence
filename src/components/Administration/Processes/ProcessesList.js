@@ -2,6 +2,7 @@ import React from "react";
 import FetchService from "../../../services/FetchService";
 import toast from "react-hot-toast";
 import LoadingComponent from "../../Essentials/LoadingComponent";
+import ProcessesRow from "./ProcessesRow";
 
 export default class ProcessesList extends React.Component {
   constructor(props) {
@@ -90,7 +91,7 @@ export default class ProcessesList extends React.Component {
       groupId: this.props.group.id,
       name: processName,
       shortName: processShortName,
-      colorCode: processColor,
+      color: processColor,
     });
 
     this.setState({
@@ -165,7 +166,9 @@ export default class ProcessesList extends React.Component {
     });
 
     let processViews = this.state.processes.map((process) => {
-      return <div>{process.name}</div>;
+      return (
+        <ProcessesRow process={process} callbackRefresh={this.refreshData} />
+      );
     });
 
     return (

@@ -17,7 +17,6 @@ export default class Processes extends React.Component {
     };
 
     this.callbackGroups = this.callbackGroups.bind(this);
-    this.refreshData = this.refreshData.bind(this);
     this.sortName = this.sortName.bind(this);
   }
 
@@ -27,7 +26,7 @@ export default class Processes extends React.Component {
       if (!AuthenticationService.hasPermissionTo("process")) user = null;
     }
 
-    this.refreshData();
+    FetchService.structureGroupGetAll(this.callbackGroups);
     this.setState({ isLoading: false, user: user });
   }
 
@@ -40,10 +39,6 @@ export default class Processes extends React.Component {
     let groups = response.result;
     groups.sort(this.sortName);
     this.setState({ groups: groups });
-  }
-
-  refreshData() {
-    FetchService.structureGroupGetAll(this.callbackGroups);
   }
 
   sortName(a, b) {
@@ -60,9 +55,7 @@ export default class Processes extends React.Component {
     if (this.state.groups === null) return <LoadingComponent />;
 
     let groupViews = this.state.groups.map((group) => {
-      return (
-        <ProcessesList group={group} callbackRefresh={this.callbackRefresh} />
-      );
+      return <ProcessesList group={group} />;
     });
 
     return (
