@@ -5,6 +5,7 @@ import LoadingComponent from "../../components/Essentials/LoadingComponent";
 import TopBar from "../../components/Administration/TopBar";
 import ReportPresence from "../../components/Administration/Reports/ReportPresence";
 import ReportEntrances from "../../components/Administration/Reports/ReportEntrances";
+import ReportProcesses from "../../components/Administration/Reports/ReportProcesses";
 
 export default class Reports extends React.Component {
   constructor(props) {
@@ -69,10 +70,7 @@ export default class Reports extends React.Component {
         return <ReportEntrances />;
 
       case "PROCESS":
-        return <div>PROCESS BOARD TODO</div>;
-
-      case "DASHBOARD":
-        return <div>DASHBOARD BOARD TODO</div>;
+        return <ReportProcesses />;
 
       default:
         return <div className="h5 text-center">Nie ma takiego raportu!</div>;

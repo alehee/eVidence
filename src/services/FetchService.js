@@ -493,7 +493,7 @@ export default class FetchService {
       .then((result) => callback(result));
   }
 
-  static reportGetProcess(callback, startDate, stopDate) {
+  static reportGetProcesses(callback, startDate, stopDate) {
     const params = new URLSearchParams();
     params.set("start", startDate);
     params.set("stop", stopDate);
