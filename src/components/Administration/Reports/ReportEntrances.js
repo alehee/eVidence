@@ -5,21 +5,18 @@ import LoadingComponent from "../../Essentials/LoadingComponent";
 import { CSVLink } from "react-csv";
 import CsvParserService from "../../../services/CsvParserService";
 import ReportEntrancesRow from "./ReportEntrancesRow";
+import ReportDateRangeBar from "./ReportDateRangeBar";
 
 export default class ReportEntrances extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: null,
-      stopDate: null,
       entrances: null,
     };
 
     this.callbackEntrances = this.callbackEntrances.bind(this);
+    this.callbackRefresh = this.callbackRefresh.bind(this);
     this.sortTimestamps = this.sortTimestamps.bind(this);
-    this.refreshData = this.refreshData.bind(this);
-    this.handleRefreshButton = this.handleRefreshButton.bind(this);
-    this.buildRefreshBar = this.buildRefreshBar.bind(this);
     this.buildData = this.buildData.bind(this);
   }
 
@@ -34,71 +31,20 @@ export default class ReportEntrances extends React.Component {
     );
 
     entrances.sort(this.sortTimestamps);
-    console.log(entrances);
+
     this.setState({
       entrances: entrances,
     });
+  }
+
+  callbackRefresh(start, stop) {
+    FetchService.reportGetEntrances(this.callbackEntrances, start, stop);
   }
 
   sortTimestamps(a, b) {
     const timestampA = new Date(a.enter);
     const timestampB = new Date(b.enter);
     return timestampA - timestampB;
-  }
-
-  refreshData() {
-    FetchService.reportGetEntrances(
-      this.callbackEntrances,
-      this.state.startDate,
-      this.state.stopDate
-    );
-  }
-
-  handleRefreshButton() {
-    if (this.state.startDate === null || this.state.stopDate === null) {
-      toast("Wypełnij obie daty generowania!");
-      return;
-    }
-
-    if (new Date(this.state.stopDate) < new Date(this.state.startDate)) {
-      toast("Data końca generowania nie może być wcześniej niż początku!");
-      return;
-    }
-
-    this.refreshData();
-  }
-
-  buildRefreshBar() {
-    return (
-      <div>
-        Od{" "}
-        <input
-          type="date"
-          class="form-control"
-          value={this.state.startDate}
-          onChange={(event) => {
-            this.setState({ startDate: event.target.value });
-          }}
-        />
-        do{" "}
-        <input
-          type="date"
-          class="form-control"
-          value={this.state.stopDate}
-          onChange={(event) => {
-            this.setState({ stopDate: event.target.value });
-          }}
-        />
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            this.handleRefreshButton();
-          }}
-        >
-          Odśwież
-        </button>
-      </div>
-    );
   }
 
   buildData() {
@@ -142,7 +88,7 @@ export default class ReportEntrances extends React.Component {
   render() {
     return (
       <div>
-        {this.buildRefreshBar()}
+        <ReportDateRangeBar callback={this.callbackRefresh} />
         {this.buildData()}
       </div>
     );

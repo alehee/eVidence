@@ -30,7 +30,7 @@ export default class ReportProcesses extends React.Component {
     processes.sort(this.sortTimestamps);
     console.log(processes);
     this.setState({
-      processes: entrances,
+      processes: processes,
     });
   }
 
