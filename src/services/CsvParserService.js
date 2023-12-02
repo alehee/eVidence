@@ -30,4 +30,38 @@ export default class CsvParserService {
 
     return rows;
   }
+
+  static parseEntrances(entrances) {
+    let rows = [
+      [
+        "Dział/Numer karty",
+        "Imię",
+        "Nazwisko",
+        "Godzina wejścia",
+        "Godzina wyjścia",
+      ],
+    ];
+
+    entrances.forEach((entrance) => {
+      if (entrance.temporaryCard !== undefined) {
+        rows.push([
+          "Nr karty " + entrance.temporaryCard.id,
+          entrance.name,
+          entrance.surname,
+          entrance.enter,
+          entrance.exit,
+        ]);
+      } else {
+        rows.push([
+          entrance.account.department.name,
+          entrance.account.name,
+          entrance.account.surname,
+          entrance.enter,
+          entrance.exit,
+        ]);
+      }
+    });
+
+    return rows;
+  }
 }
