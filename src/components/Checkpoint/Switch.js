@@ -11,7 +11,6 @@ export default class Switch extends React.Component {
       isLoading: true,
       processesViews: null,
       lastActivity: undefined,
-      idleTimer: null,
     };
 
     this.callbackGroups = this.callbackGroups.bind(this);
@@ -32,15 +31,6 @@ export default class Switch extends React.Component {
     if (!operator.isTemp)
       FetchService.checkpointAccountCheck(this.callbackCheck, operator.id);
     else FetchService.checkpointTemporaryCheck(this.callbackCheck, operator.id);
-
-    if (this.state.idleTimer !== null) clearTimeout(this.state.idleTimer);
-    this.setState({
-      idleTimer: setTimeout(() => this.props.resetView(), 15000),
-    });
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.state.idleTimer);
   }
 
   callbackGroups(response) {

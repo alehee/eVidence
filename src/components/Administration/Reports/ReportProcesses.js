@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { CSVLink } from "react-csv";
 import CsvParserService from "../../../services/CsvParserService";
 import ReportDateRangeBar from "./ReportDateRangeBar";
+import ReportProcessesRow from "./ReportProcessesRow";
 
 export default class ReportProcesses extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ export default class ReportProcesses extends React.Component {
 
     this.callbackProcesses = this.callbackProcesses.bind(this);
     this.callbackRefresh = this.callbackRefresh.bind(this);
-    this.sortTimestamps = this.sortTimestamps.bind(this);
+    this.sortByStart = this.sortByStart.bind(this);
     this.buildData = this.buildData.bind(this);
   }
 
@@ -24,27 +25,21 @@ export default class ReportProcesses extends React.Component {
       return;
     }
 
-    let processes = [];
-    // TODO
+    let processes = response.result;
+    processes.sort(this.sortByStart);
 
-    processes.sort(this.sortTimestamps);
-    console.log(processes);
     this.setState({
       processes: processes,
     });
   }
 
-  callbackRefresh(startDate, stopDate) {
-    FetchService.reportGetProcesses(
-      this.callbackProcesses,
-      startDate,
-      stopDate
-    );
+  callbackRefresh(start, stop) {
+    FetchService.reportGetProcesses(this.callbackProcesses, start, stop);
   }
 
-  sortTimestamps(a, b) {
-    const timestampA = new Date(a.enter);
-    const timestampB = new Date(b.enter);
+  sortByStart(a, b) {
+    const timestampA = new Date(a.start);
+    const timestampB = new Date(b.start);
     return timestampA - timestampB;
   }
 
@@ -52,13 +47,39 @@ export default class ReportProcesses extends React.Component {
     if (this.state.processes === null) return;
 
     let processes = this.state.processes.map((process) => {
-      return; // TODO
+      return <ReportProcessesRow processRow={process} />;
     });
 
     return (
       <div>
-        <div className="d-flex flex-row-reverse my-2">TODO Export</div>
-        <div>TODO Table</div>
+        <div className="d-flex flex-row-reverse my-2">
+          <CSVLink
+            className="btn btn-primary"
+            filename={
+              "raportProcesow_" +
+              new Date().toISOString().split(".")[0] +
+              ".csv"
+            }
+            data={CsvParserService.parseProcesses(this.state.processes)}
+          >
+            Eksportuj do CSV
+          </CSVLink>
+        </div>
+        <div>
+          <table class="table text-center">
+            <thead>
+              <tr>
+                <th scope="col">Dział</th>
+                <th scope="col">Imię</th>
+                <th scope="col">Nazwisko</th>
+                <th scope="col">Proces</th>
+                <th scope="col">Start</th>
+                <th scope="col">Zakończenie</th>
+              </tr>
+            </thead>
+            <tbody>{processes}</tbody>
+          </table>
+        </div>
       </div>
     );
   }

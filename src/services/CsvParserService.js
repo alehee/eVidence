@@ -64,4 +64,27 @@ export default class CsvParserService {
 
     return rows;
   }
+
+  static parseProcesses(processes) {
+    let rows = [
+      ["Dział", "Imię", "Nazwisko", "Proces", "Start", "Zakończenie"],
+    ];
+
+    processes.forEach((process) => {
+      let row = [process.department.name];
+      if (process.temporaryEntrance !== null) {
+        row.push(process.temporaryEntrance.name);
+        row.push(process.temporaryEntrance.surname);
+      } else {
+        row.push(process.account.name);
+        row.push(process.account.surname);
+      }
+      row.push(process.process.name);
+      row.push(process.start);
+      row.push(process.stop);
+      rows.push(row);
+    });
+
+    return rows;
+  }
 }

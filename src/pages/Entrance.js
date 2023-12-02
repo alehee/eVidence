@@ -32,7 +32,6 @@ export default class Entrance extends React.Component {
   }
 
   callbackAuthentication(response) {
-    console.log(response);
     if (!response.success) {
       toast("Wystąpił problem z rozpoznaniem karty. Spróbuj ponownie później.");
       this.resetView();
@@ -58,7 +57,6 @@ export default class Entrance extends React.Component {
   }
 
   callbackAccountCheck(response) {
-    console.log(response);
     if (!response.success) {
       toast("Wystąpił problem z rozpoznaniem karty. Spróbuj ponownie później.");
       this.resetView();
