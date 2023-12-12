@@ -138,7 +138,7 @@ export default class Entrance extends React.Component {
 
     return (
       <div>
-        <div>Bramka wejścia</div>
+        <div className="text-center h3 text-first p-5">Wejście/wyjście</div>
         <CardReader callbackKeycard={this.callbackKeycard} />
       </div>
     );

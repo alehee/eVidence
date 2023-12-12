@@ -108,7 +108,7 @@ export default class Register extends React.Component {
       headerText = "Rejestracja użytkownika tymczasowego";
 
     return (
-      <div>
+      <div className="w-75 mx-auto">
         <div className="h4 text-center my-3">{headerText}</div>
         <input
           type="text"
@@ -130,18 +130,20 @@ export default class Register extends React.Component {
           inputs={this.state.inputs}
           inputId={this.state.inputId}
         />
-        <button
-          className="btn btn-primary mt-3 px-3"
-          onClick={() => this.buttonValidateAndRegister()}
-        >
-          Zatwierdź
-        </button>
-        <button
-          className="btn btn-danger mt-3 px-3"
-          onClick={() => this.props.resetView()}
-        >
-          Anuluj
-        </button>
+        <div className="text-center">
+          <button
+            className="btn btn-primary m-3 px-3"
+            onClick={() => this.buttonValidateAndRegister()}
+          >
+            Zatwierdź
+          </button>
+          <button
+            className="btn btn-danger m-3 px-3"
+            onClick={() => this.props.resetView()}
+          >
+            Anuluj
+          </button>
+        </div>
       </div>
     );
   }

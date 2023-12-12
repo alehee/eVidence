@@ -38,6 +38,10 @@ export default class CardReader extends React.Component {
   }
 
   render() {
-    return <div>Przyłóż kartę do czytnika</div>;
+    return (
+      <div className="text-center h5 fst-italic text-first">
+        Przyłóż kartę do czytnika
+      </div>
+    );
   }
 }

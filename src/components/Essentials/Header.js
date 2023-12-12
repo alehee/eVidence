@@ -5,7 +5,9 @@ const Header = () => {
   return (
     <div>
       <Toaster position="top-right" />
-      <div className="text-center my-5 h3"> eVidence</div>
+      <div className="text-center p-5 h2 background-second text-second">
+        eVidence
+      </div>
     </div>
   );
 };

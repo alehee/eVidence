@@ -8,15 +8,16 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <Link to={"/administration"}>Administration</Link>
+      <div className="text-center">
+        <div className="h4 p-2">Wybierz moduł</div>
+        <div className="mb-2">
+          <Link to={"/administration"}>Moduł administracji</Link>
         </div>
-        <div>
-          <Link to={"/entrance"}>Entrance</Link>
+        <div className="mb-2">
+          <Link to={"/entrance"}>Moduł wejścia/wyjścia</Link>
         </div>
-        <div>
-          <Link to={"/checkpoint"}>Checkpoint</Link>
+        <div className="mb-2">
+          <Link to={"/checkpoint"}>Moduł zmiany procesów</Link>
         </div>
       </div>
     );

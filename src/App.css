@@ -1,21 +1,26 @@
-/*
-#F8F0E5
-#EADBC8
-#DAC0A3
-#0F2C59
-*/
-
 .cursor-pointer {
   cursor: pointer;
 }
 
 body {
-  background-color: #F8F0E5;
+  background-color: #EFDDFD;
+}
+
+.background-second {
+ background-color: #700CBC;
+}
+
+.text-first {
+  color: #36065B;
+}
+
+.text-second {
+  color: #A33AF2;
 }
 
 .header {
   height: 23px;
-  background-color: #EADBC8;
+  background-color: #36065B;
   font-size: smaller;
 }
 
