@@ -169,7 +169,7 @@ export default class TemporaryCards extends React.Component {
     return (
       <div>
         <TopBar />
-        <div className="text-center my-4 h4 fst-italic">
+        <div className="text-center my-4 h4 fst-italic text-first">
           Zarządzanie kartami tymczasowymi
         </div>
         <div>{this.buildTemporaryCardsList()}</div>

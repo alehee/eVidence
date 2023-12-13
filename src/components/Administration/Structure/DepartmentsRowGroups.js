@@ -67,7 +67,7 @@ export default class DepartmentsRowGroups extends React.Component {
 
     for (const [key, value] of Object.entries(this.state.groups)) {
       checkboxes.push(
-        <div className="d-block">
+        <div className="d-inline-block mx-3">
           <input
             class="form-check-input mx-1"
             type="checkbox"
@@ -87,6 +87,8 @@ export default class DepartmentsRowGroups extends React.Component {
   render() {
     if (this.state.groups === null) return;
 
-    return <div className="d-block m-1">{this.buildCheckboxes()}</div>;
+    return (
+      <div className="d-block m-1 text-center">{this.buildCheckboxes()}</div>
+    );
   }
 }

@@ -61,7 +61,7 @@ export default class Processes extends React.Component {
     return (
       <div>
         <TopBar />
-        <div className="text-center my-4 h4 fst-italic">
+        <div className="text-center my-4 h4 fst-italic text-first">
           Zarządzanie procesami
         </div>
         <div className="w-75 mx-auto">{groupViews}</div>

@@ -71,7 +71,7 @@ export default class GroupsList extends React.Component {
           <div className="d-block">
             <input
               type="text"
-              class="form-control"
+              class="form-control w-50 mx-auto my-2"
               placeholder="Nazwa nowej grupy"
               value={this.state.newGroup}
               onChange={(event) => {

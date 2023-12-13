@@ -92,7 +92,7 @@ const AdministratorRow = ({ administrator, callbackRefresh }) => {
   }
 
   return (
-    <div className="row my-3">
+    <div className="row my-3 mx-2">
       <div className="col-4">
         <div>Login</div>
         <input
@@ -106,10 +106,10 @@ const AdministratorRow = ({ administrator, callbackRefresh }) => {
           disabled={isUpdating}
         />
       </div>
-      <div className="col form-check">
+      <div className="col">
         <div className="d-block">
           <input
-            class="form-check-input"
+            class="form-check-input mx-2"
             type="checkbox"
             checked={permissionAdministrator}
             onChange={() => {
@@ -121,7 +121,7 @@ const AdministratorRow = ({ administrator, callbackRefresh }) => {
         </div>
         <div className="d-block">
           <input
-            class="form-check-input"
+            class="form-check-input mx-2"
             type="checkbox"
             checked={permissionUser}
             onChange={() => {
@@ -133,7 +133,7 @@ const AdministratorRow = ({ administrator, callbackRefresh }) => {
         </div>
         <div className="d-block">
           <input
-            class="form-check-input"
+            class="form-check-input mx-2"
             type="checkbox"
             checked={permissionProcess}
             onChange={() => {
@@ -147,7 +147,7 @@ const AdministratorRow = ({ administrator, callbackRefresh }) => {
         </div>
         <div className="d-block">
           <input
-            class="form-check-input"
+            class="form-check-input mx-2"
             type="checkbox"
             checked={permissionReport}
             onChange={() => {

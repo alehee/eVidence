@@ -111,13 +111,21 @@ export default class Switch extends React.Component {
     let lastActivityView = null;
     if (this.state.lastActivity !== null) {
       lastActivityView = (
-        <div className="text-center">
-          Aktualny proces{" "}
-          <span className="h5" style={{ color: this.state.lastActivity.color }}>
-            {this.state.lastActivity.name}
-          </span>
+        <div className="text-center mb-4">
+          <div>Aktualny proces </div>
+          <div className="my-2">
+            <span
+              className="badge p-2"
+              style={{
+                backgroundColor: this.state.lastActivity.color,
+                color: "black",
+              }}
+            >
+              {this.state.lastActivity.name}
+            </span>
+          </div>
           <div
-            className="badge bg-secondary"
+            className="badge bg-danger p-2 cursor-pointer"
             onClick={this.handleClickEndProcess}
           >
             Zakończ
@@ -137,14 +145,16 @@ export default class Switch extends React.Component {
   render() {
     return (
       <div>
-        <div className="text-center">
+        <div className="text-center p-5">
           Dział{" "}
           <span className="h5">{this.props.departmentName.toUpperCase()}</span>
         </div>
         {this.build()}
-        <button className="btn btn-danger" onClick={this.props.resetView}>
-          Anuluj
-        </button>
+        <div className="text-center mt-5">
+          <button className="btn btn-danger" onClick={this.props.resetView}>
+            Anuluj
+          </button>
+        </div>
       </div>
     );
   }

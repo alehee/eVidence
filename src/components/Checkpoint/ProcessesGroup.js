@@ -42,8 +42,11 @@ export default class ProcessesGroup extends React.Component {
 
     return (
       <div className="my-3">
-        <div className="text-center">{this.props.group.name}</div>
-        {this.state.processes}
+        <div className="text-center my-2">
+          Grupa{" "}
+          <span className="h5">{this.props.group.name.toUpperCase()}</span>
+        </div>
+        <div className="text-center w-75 mx-auto">{this.state.processes}</div>
       </div>
     );
   }

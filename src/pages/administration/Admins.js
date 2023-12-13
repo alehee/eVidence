@@ -39,7 +39,7 @@ export default class Admins extends React.Component {
     return (
       <div>
         <TopBar />
-        <div className="text-center my-4 h4 fst-italic">
+        <div className="text-center my-4 h4 fst-italic text-first">
           Zarządzanie administatorami
         </div>
         <div>

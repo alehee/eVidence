@@ -85,7 +85,7 @@ export default class Reports extends React.Component {
     return (
       <div>
         <TopBar />
-        <div className="text-center my-4 h4 fst-italic">Raporty</div>
+        <div className="text-center my-4 h4 fst-italic text-first">Raporty</div>
         <div className="w-50 mx-auto">{this.buildViewSelect()}</div>
         <div className="w-75 mx-auto">{this.buildView()}</div>
       </div>

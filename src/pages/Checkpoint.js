@@ -132,9 +132,9 @@ export default class Checkpoint extends React.Component {
 
     return (
       <div>
-        <div>Bramka procesów dla działu</div>
+        <div className="text-center h3 text-first p-5">Zmiana procesów</div>
         <select
-          className="form-control w-75 my-2 mx-auto"
+          className="form-control w-50 my-2 mx-auto"
           onChange={this.handleDepartmentSelectChange}
           value={this.state.departmentId}
         >
@@ -162,7 +162,9 @@ export default class Checkpoint extends React.Component {
     return (
       <div>
         {this.buildDepartmentSelect()}
-        <CardReader callbackKeycard={this.callbackKeycard} />
+        <div className="p-5">
+          <CardReader callbackKeycard={this.callbackKeycard} />
+        </div>
       </div>
     );
   }

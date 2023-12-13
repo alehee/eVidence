@@ -3,8 +3,6 @@ import AuthenticationService from "../../services/AuthenticationService";
 import { Navigate } from "react-router-dom";
 import LoadingComponent from "../../components/Essentials/LoadingComponent";
 import TopBar from "../../components/Administration/TopBar";
-import FetchService from "../../services/FetchService";
-import toast from "react-hot-toast";
 import DepartmentsList from "../../components/Administration/Structure/DepartmentsList";
 import GroupsList from "../../components/Administration/Structure/GroupsList";
 
@@ -34,7 +32,7 @@ export default class Structure extends React.Component {
     return (
       <div>
         <TopBar />
-        <div className="text-center my-4 h4 fst-italic">
+        <div className="text-center my-4 h4 fst-italic text-first">
           Zarządzanie działami i grupami
         </div>
         <div>

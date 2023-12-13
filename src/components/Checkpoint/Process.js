@@ -3,7 +3,7 @@ import React from "react";
 const Process = ({ process, callback }) => {
   return (
     <div
-      className="text-center my-2 w-25 mx-auto"
+      className="d-inline-block text-center p-3 m-1 cursor-pointer border rounded"
       style={{ backgroundColor: process.color }}
       onClick={() => callback(process.id)}
     >

@@ -20,26 +20,15 @@ body {
 
 .header {
   height: 23px;
-  background-color: #36065B;
   font-size: smaller;
 }
 
 .header-element {
-  color: black;
+  color: #36065B;
   text-decoration: none;
 }
 
 .header-element:hover {
-  color: black;
+  color: #36065B;
   text-decoration: none;
-}
-
-.nav-element {
-  color: black;
-  text-decoration: none;
-}
-
-.nav-element:hover {
-  color: black;
-  text-decoration: underline;
 }

@@ -80,7 +80,7 @@ export default class AdministratorsList extends React.Component {
           <div className="d-block">
             <input
               type="text"
-              class="form-control "
+              class="form-control w-50 mx-auto my-2"
               placeholder="Login nowego administratora"
               value={this.state.newAdministratorLogin}
               onChange={(event) => {

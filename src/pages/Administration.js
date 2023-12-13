@@ -34,17 +34,14 @@ export default class Administration extends React.Component {
     let links = [];
 
     links.push(
-      <Link to={"/administration/admins"} className="nav-element d-block">
+      <Link to={"/administration/admins"} className="d-block my-2">
         Zarządzanie administatorami
       </Link>
     );
 
     if (AuthenticationService.hasPermissionTo("administrator")) {
       links.push(
-        <Link
-          to={"/administration/temporarycards"}
-          className="nav-element d-block"
-        >
+        <Link to={"/administration/temporarycards"} className="d-block my-2">
           Zarządzanie kartami tymczasowymi
         </Link>
       );
@@ -52,7 +49,7 @@ export default class Administration extends React.Component {
 
     if (AuthenticationService.hasPermissionTo("users")) {
       links.push(
-        <Link to={"/administration/users"} className="nav-element d-block">
+        <Link to={"/administration/users"} className="d-block my-2">
           Zarządzanie użytkownikami
         </Link>
       );
@@ -60,7 +57,7 @@ export default class Administration extends React.Component {
 
     if (AuthenticationService.hasPermissionTo("administrator")) {
       links.push(
-        <Link to={"/administration/structure"} className="nav-element d-block">
+        <Link to={"/administration/structure"} className="d-block my-2">
           Zarządzanie działami i grupami
         </Link>
       );
@@ -68,7 +65,7 @@ export default class Administration extends React.Component {
 
     if (AuthenticationService.hasPermissionTo("process")) {
       links.push(
-        <Link to={"/administration/processes"} className="nav-element d-block">
+        <Link to={"/administration/processes"} className="d-block my-2">
           Zarządzanie procesami
         </Link>
       );
@@ -76,18 +73,13 @@ export default class Administration extends React.Component {
 
     if (AuthenticationService.hasPermissionTo("report")) {
       links.push(
-        <Link to={"/administration/reports"} className="nav-element d-block">
+        <Link to={"/administration/reports"} className="d-block my-2">
           Raporty
         </Link>
       );
     }
 
-    return (
-      <div className="text-center">
-        <div className="h5">MODUŁY PANELU</div>
-        {links}
-      </div>
-    );
+    return <div className="text-center">{links}</div>;
   }
 
   render() {
@@ -99,13 +91,10 @@ export default class Administration extends React.Component {
     return (
       <div>
         <TopBar />
-        <div className="text-center my-4 h4 fst-italic">
+        <div className="text-center my-4 h4 fst-italic text-first">
           Witaj w panelu administracyjnym
         </div>
-        <div className="row">
-          <div className="col">{this.buildLinksByPermissions()}</div>
-          <div className="col-8"></div>
-        </div>
+        <div>{this.buildLinksByPermissions()}</div>
       </div>
     );
   }

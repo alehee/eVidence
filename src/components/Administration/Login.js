@@ -46,6 +46,9 @@ export default class Login extends React.Component {
 
     return (
       <div className="w-50 mx-auto">
+        <div className="text-center h4 my-5 text-first">
+          Logowanie do panelu administratora
+        </div>
         <div class="mb-3">
           <label class="form-label">Nazwa użytkownika</label>
           <input

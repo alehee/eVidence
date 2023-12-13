@@ -80,7 +80,7 @@ export default class DepartmentsList extends React.Component {
           <div className="d-block">
             <input
               type="text"
-              class="form-control"
+              className="form-control w-50 mx-auto my-2"
               placeholder="Nazwa nowego działu"
               value={this.state.newDepartment}
               onChange={(event) => {

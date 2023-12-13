@@ -114,7 +114,7 @@ const DepartmentsRow = ({ department, groups, callbackRefresh }) => {
       </div>
       <div className="row m-2">
         <div
-          class="btn btn-info"
+          className="btn btn-info w-50 mx-auto"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target={"#structure-departments-groups-" + department.id}
