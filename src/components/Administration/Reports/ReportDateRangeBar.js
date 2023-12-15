@@ -20,7 +20,7 @@ const ReportDateRangeBar = ({ callback }) => {
   }
 
   return (
-    <div>
+    <div className="w-50 mx-auto my-2">
       Od{" "}
       <input
         type="date"

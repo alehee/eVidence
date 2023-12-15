@@ -103,7 +103,7 @@ export default class ProcessesList extends React.Component {
 
   buildProcessCreator() {
     return (
-      <div>
+      <div className="w-50 mx-auto">
         <div
           class="btn btn-success"
           type="button"
@@ -119,7 +119,7 @@ export default class ProcessesList extends React.Component {
           <div className="d-block">
             <input
               type="text"
-              class="form-control"
+              class="form-control my-1"
               placeholder="Nazwa nowego procesu"
               value={this.state.newProcessName}
               onChange={(event) => {
@@ -128,7 +128,7 @@ export default class ProcessesList extends React.Component {
             />
             <input
               type="text"
-              class="form-control"
+              class="form-control my-1"
               placeholder="Skrócona nazwa nowego procesu"
               value={this.state.newProcessShortName}
               onChange={(event) => {
@@ -137,7 +137,7 @@ export default class ProcessesList extends React.Component {
             />
             <input
               type="color"
-              class="form-control"
+              class="form-control my-1 w-50 mx-auto"
               value={this.state.newProcessColor}
               onChange={(event) => {
                 this.setState({ newProcessColor: event.target.value });

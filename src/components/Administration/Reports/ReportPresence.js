@@ -80,7 +80,7 @@ export default class ReportPresence extends React.Component {
 
     return (
       <div>
-        <table class="table text-center">
+        <table class="table text-center table-striped">
           <thead>
             <tr>
               <th scope="col">Imię</th>
@@ -113,7 +113,7 @@ export default class ReportPresence extends React.Component {
 
     return (
       <div>
-        <table class="table text-center">
+        <table class="table text-center table-striped">
           <thead>
             <tr>
               <th scope="col">Numer karty</th>

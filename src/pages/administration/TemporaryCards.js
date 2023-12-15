@@ -117,7 +117,7 @@ export default class TemporaryCards extends React.Component {
           <div className="d-block">
             <input
               type="text"
-              class="form-control"
+              class="form-control w-50 mx-auto my-1"
               placeholder="Numery nowej karty"
               value={this.state.newTemporaryCardKeycard}
               onChange={(event) => {

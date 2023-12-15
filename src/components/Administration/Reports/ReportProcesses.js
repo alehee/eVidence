@@ -66,7 +66,7 @@ export default class ReportProcesses extends React.Component {
           </CSVLink>
         </div>
         <div>
-          <table class="table text-center">
+          <table class="table text-center table-striped">
             <thead>
               <tr>
                 <th scope="col">Dział</th>
