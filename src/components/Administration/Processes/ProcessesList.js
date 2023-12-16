@@ -162,7 +162,7 @@ export default class ProcessesList extends React.Component {
       return <LoadingComponent />;
 
     let departmentNames = this.state.departments.map((department) => {
-      return <span className="fst-italic">{department.name}</span>;
+      return <span className="fst-italic mx-1">{department.name}</span>;
     });
 
     let processViews = this.state.processes.map((process) => {
